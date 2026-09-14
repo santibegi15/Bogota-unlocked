@@ -9,11 +9,8 @@ export default function Home() {
     name: '',
     email: '',
     pickupLocation: '',
-    notes: '',
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Pricing rules to guarantee healthy profit margins
   const pricePerPerson = guests === 1 ? 279 : 199;
   const totalPrice = guests * pricePerPerson;
 
@@ -21,23 +18,17 @@ export default function Home() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleCheckout = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Redirección a pasarela de pagos (ejemplo: Stripe Payment Link o Wompi)
-    // Aquí puedes vincular directamente tu enlace de pago seguro
-    const checkoutUrl = `https://checkout.wompi.co/l/TU_LINK_DE_PAGO?amount=${totalPrice}&guests=${guests}&email=${encodeURIComponent(formData.email)}`;
-    
-    // Por ahora mostramos alerta de confirmación o redirigimos
-    window.location.href = checkoutUrl;
+    const message = `Hi! I'd like to book Bogotá Unlocked for ${guests} guest(s) on date: ${formData.date || 'TBD'}. Name: ${formData.name}, Pickup: ${formData.pickupLocation}. Total: $${totalPrice} USD.`;
+    window.open(`https://wa.me/573152551212?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C2523] font-sans antialiased selection:bg-[#E07A5F] selection:text-white">
       {/* Top Banner */}
       <div className="bg-[#2D3E35] text-[#F4F1DE] text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
-        Private All-Inclusive Bookings Open for 2026 • Instant Digital Confirmation
+        Private All-Inclusive Bookings Open for 2026 • Curated Small-Party Exclusivity
       </div>
 
       {/* Navigation */}
@@ -55,7 +46,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase text-[#5C534E] hover:text-[#C85A32] transition"
             >
-              <span>Questions? Chat with Host</span>
+              Direct Host Contact
             </a>
             <a
               href="#reserve"
@@ -68,7 +59,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 pt-16 pb-20 max-w-5xl mx-auto text-center">
+      <section className="relative px-6 pt-16 pb-16 max-w-5xl mx-auto text-center">
         <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#EAE4DC] text-[#2D3E35] text-xs font-semibold tracking-wide uppercase mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C85A32]"></span>
           <span>Exclusive 1-Day Private Immersion</span>
@@ -79,67 +70,96 @@ export default function Home() {
         </h1>
 
         <p className="text-lg sm:text-xl text-[#5C534E] max-w-2xl mx-auto mb-10 leading-relaxed">
-          Exotic mountain gastronomy, historic colonial courtyards, high-altitude panoramas, and explosive gunpowder tejo. Complete door-to-door private transport, all entrance passes, and your dedicated local host.
+          From exotic fruit cupping in vibrant markets and panoramic high-altitude sanctuaries to colonial gold and explosive gunpowder tejo. Complete door-to-door private transport, all admissions, and your dedicated local host.
         </p>
+
+        {/* Hero Video Banner (Monserrate Drone) */}
+        <div className="relative w-full h-[360px] sm:h-[480px] overflow-hidden rounded-2xl shadow-xl mb-12 bg-neutral-900">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-full h-full object-cover"
+          >
+            <source src="/monserrate.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 flex items-end justify-between p-6 sm:p-8 text-white">
+            <span className="text-sm font-medium tracking-wide">
+              Monserrate Sanctuary (3,152m) • Private Fast-Track Access
+            </span>
+            <span className="text-xs uppercase tracking-widest text-amber-300 font-bold hidden sm:inline-block">
+              Panoramic Andean Views
+            </span>
+          </div>
+        </div>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
             href="#reserve"
             className="w-full sm:w-auto px-8 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
           >
-            Check Availability & Reserve Online
+            Reserve Your Private Date
           </a>
           <a
             href="#itinerary"
             className="w-full sm:w-auto px-8 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
           >
-            Explore 1-Day Itinerary
+            Explore Full Itinerary
           </a>
-        </div>
-
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-xs font-medium text-[#786E65]">
-          <span>✓ Private Hotel Pickup & Drop-Off</span>
-          <span>✓ 100% All-Inclusive (No Hidden Costs)</span>
-          <span>✓ Secure Card Checkout (Instant Receipt)</span>
         </div>
       </section>
 
-      {/* Visual Showcase */}
+      {/* Visual Feature Showcase with Videos */}
       <section className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="group relative h-80 rounded-xl overflow-hidden shadow-sm bg-[#EAE4DC]">
-            <img 
-              src="https://images.unsplash.com/photo-1543083477-4f785aeafaa9?auto=format&fit=crop&w=900&q=80" 
-              alt="Paloquemao Market" 
+          {/* Card 1: Paloquemao Fruits Video */}
+          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+            >
+              <source src="/fruits.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
               <span className="text-xs uppercase font-bold tracking-widest text-amber-300">Paloquemao Market</span>
-              <h3 className="font-serif text-xl font-bold">Exotic Fruit Tasting & Arepas</h3>
+              <h3 className="font-serif text-xl font-bold">Exotic Native Fruit Tasting</h3>
+              <p className="text-xs text-neutral-200 mt-1">Lulo, passionfruit, granadilla & freshly baked Boyacense arepas.</p>
             </div>
           </div>
 
-          <div className="group relative h-80 rounded-xl overflow-hidden shadow-sm bg-[#EAE4DC]">
+          {/* Card 2: Tejo Culture */}
+          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
             <img 
               src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" 
               alt="Tejo Tradition" 
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
               <span className="text-xs uppercase font-bold tracking-widest text-amber-300">National Sport</span>
-              <h3 className="font-serif text-xl font-bold">Gunpowder Tejo & Cold Craft Beer</h3>
+              <h3 className="font-serif text-xl font-bold">Gunpowder Tejo & Craft Beer</h3>
+              <p className="text-xs text-neutral-200 mt-1">Experience Colombia's explosive 500-year-old indigenous game.</p>
             </div>
           </div>
 
-          <div className="group relative h-80 rounded-xl overflow-hidden shadow-sm bg-[#EAE4DC]">
-            <img 
-              src="https://images.unsplash.com/photo-1589556264800-08ae9e129a8c?auto=format&fit=crop&w=900&q=80" 
-              alt="Monserrate Views" 
+          {/* Card 3: Specialty Coffee Video */}
+          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">Fast-Track Access</span>
-              <h3 className="font-serif text-xl font-bold">Monserrate Summit & Historic Candelaria</h3>
+            >
+              <source src="/coffee.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">Specialty Coffee</span>
+              <h3 className="font-serif text-xl font-bold">Third-Wave Cupping Session</h3>
+              <p className="text-xs text-neutral-200 mt-1">Single-origin pour-over methods guided by certified local baristas.</p>
             </div>
           </div>
         </div>
@@ -149,12 +169,12 @@ export default function Home() {
       <section id="itinerary" className="py-20 px-6 max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <span className="text-xs uppercase font-bold tracking-widest text-[#C85A32]">The Signature Itinerary</span>
-          <h2 className="font-serif text-3xl font-bold text-[#2C2523] mt-2">Everything Planned, Zero Hassle</h2>
+          <h2 className="font-serif text-3xl font-bold text-[#2C2523] mt-2">Everything Planned, Zero Friction</h2>
         </div>
 
         <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-[#D6CEC3]">
           {[
-            { time: "08:00 AM", title: "Private Hotel Lobby Pickup", desc: "Private vehicle and host meet you directly at your accommodation in Chapinero, Usaquén, or El Chicó." },
+            { time: "08:00 AM", title: "Private Hotel Lobby Pickup", desc: "Private vehicle meets you directly at your accommodation in Chapinero, Usaquén, or El Chicó." },
             { time: "08:45 AM", title: "Paloquemao Exotic Fruit Immersion", desc: "Sample 7+ exotic native fruits alongside hot Boyacense arepas and fresh local coffee." },
             { time: "10:45 AM", title: "Monserrate Sanctuary (Fast-Track)", desc: "Skip ticket queues and take the cable car or funicular up to 3,152m for panoramic city vistas." },
             { time: "01:00 PM", title: "Traditional Colonial Courtyard Lunch", desc: "Sit-down multi-course lunch featuring authentic Ajiaco Santafereño soup, artisan refreshments, and dessert." },
@@ -172,14 +192,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Online Checkout & Booking Section */}
+      {/* Online Reservation Widget */}
       <section id="reserve" className="py-20 px-6 border-t border-[#EAE4DC] bg-[#F7F4EE]">
         <div className="max-w-xl mx-auto bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-8 shadow-xl">
-          <h2 className="font-serif text-2xl font-bold text-[#2C2523] text-center mb-1">Book Your Private Tour</h2>
-          <p className="text-xs text-[#786E65] text-center mb-8">Instant confirmation • Secure credit card processing</p>
+          <h2 className="font-serif text-2xl font-bold text-[#2C2523] text-center mb-1">Reserve Your Private Tour</h2>
+          <p className="text-xs text-[#786E65] text-center mb-8">Instant confirmation • Small party exclusivity guarantee</p>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Guest Selector */}
+          <form onSubmit={handleCheckout} className="space-y-5">
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Number of Guests</label>
               <div className="grid grid-cols-4 gap-2">
@@ -200,12 +219,11 @@ export default function Home() {
               </div>
               {guests === 1 && (
                 <p className="text-[11px] text-[#C85A32] mt-1.5 italic">
-                  *Solo traveler private vehicle & guide exclusivity fee applied ($279 total).
+                  *Solo traveler private vehicle & host exclusivity fee applied ($279 total).
                 </p>
               )}
             </div>
 
-            {/* Date Selector */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Select Date</label>
               <input 
@@ -218,7 +236,6 @@ export default function Home() {
               />
             </div>
 
-            {/* Contact Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Full Name</label>
@@ -259,27 +276,25 @@ export default function Home() {
               />
             </div>
 
-            {/* Total Pricing Box */}
             <div className="p-4 bg-[#F7F4EE] rounded-md border border-[#EAE4DC] flex justify-between items-center">
               <div>
                 <span className="block text-xs text-[#786E65]">Total All-Inclusive Price</span>
-                <span className="text-xs text-[#5C534E] font-medium">({guests} {guests === 1 ? 'person' : 'people'} × ${pricePerPerson} USD)</span>
+                <span className="text-xs text-[#5C534E] font-medium">({guests} {guests === 1 ? 'guest' : 'guests'} × ${pricePerPerson} USD)</span>
               </div>
               <span className="text-2xl font-serif font-bold text-[#C85A32]">${totalPrice} USD</span>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md cursor-pointer flex items-center justify-center gap-2"
             >
-              <span>🔒 Proceed to Secure Credit Card Payment</span>
+              Confirm Reservation & Request Availability
             </button>
 
             <div className="flex items-center justify-center gap-4 text-xs text-[#786E65] pt-1">
-              <span>💳 Visa / Mastercard / Amex</span>
+              <span>All Taxes & Fees Included</span>
               <span>•</span>
-              <span>100% Refund if cancelled 24h before</span>
+              <span>100% Refundable up to 24h prior</span>
             </div>
           </form>
         </div>
@@ -289,7 +304,7 @@ export default function Home() {
       <footer className="border-t border-[#EAE4DC] py-12 px-6 text-center text-xs text-[#786E65] bg-[#FDFBF7]">
         <p className="font-serif font-bold text-[#2C2523] mb-1">Bogotá Unlocked</p>
         <p className="mb-1">Registered Tourism Operator • Bogotá Chamber of Commerce</p>
-        <p>Iván Santiago Betancurt Giraldo • Bogotá, Colombia</p>
+        <p>Bogotá, Colombia</p>
       </footer>
     </div>
   );
