@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [guests, setGuests] = useState(2);
+  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' | 'whatsapp'
   const [formData, setFormData] = useState({
     date: '',
     name: '',
@@ -14,21 +15,35 @@ export default function Home() {
   const pricePerPerson = guests === 1 ? 279 : 199;
   const totalPrice = guests * pricePerPerson;
 
+  // Enlaces de pago directos de Stripe (puedes reemplazarlos por tus URLs de Stripe Payment Links reales)
+  const stripePaymentLinks = {
+    1: 'https://buy.stripe.com/test_1guest_279',
+    2: 'https://buy.stripe.com/test_2guests_398',
+    3: 'https://buy.stripe.com/test_3guests_597',
+    4: 'https://buy.stripe.com/test_4guests_796',
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleCheckout = (e) => {
     e.preventDefault();
-    const message = `Hi! I'd like to book Bogotá Unlocked for ${guests} guest(s) on date: ${formData.date || 'TBD'}. Name: ${formData.name}, Pickup: ${formData.pickupLocation}. Total: $${totalPrice} USD.`;
-    window.open(`https://wa.me/573152551212?text=${encodeURIComponent(message)}`, '_blank');
+
+    if (paymentMethod === 'card') {
+      const checkoutUrl = stripePaymentLinks[guests] || stripePaymentLinks[2];
+      window.open(checkoutUrl, '_blank');
+    } else {
+      const message = `Hi! I'd like to reserve the Bogotá Unlocked Private Tour for ${guests} guest(s) on date: ${formData.date || 'TBD'}. Name: ${formData.name}, Pickup: ${formData.pickupLocation}. Total: $${totalPrice} USD.`;
+      window.open(`https://wa.me/573152551212?text=${encodeURIComponent(message)}`, '_blank');
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C2523] font-sans antialiased selection:bg-[#E07A5F] selection:text-white">
       {/* Top Banner */}
       <div className="bg-[#2D3E35] text-[#F4F1DE] text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
-        Private All-Inclusive Bookings Open for 2026 • Curated Small-Party Exclusivity
+        Official MinCIT Registered Operator • RNT No. 301817 • Small-Party Private Exclusivity
       </div>
 
       {/* Navigation */}
@@ -73,7 +88,7 @@ export default function Home() {
           From exotic fruit cupping in vibrant markets and panoramic high-altitude sanctuaries to colonial gold and explosive gunpowder tejo. Complete door-to-door private transport, all admissions, and your dedicated local host.
         </p>
 
-        {/* Hero Video Banner (Monserrate Drone) */}
+        {/* Hero Video Banner */}
         <div className="relative w-full h-[360px] sm:h-[480px] overflow-hidden rounded-2xl shadow-xl mb-12 bg-neutral-900">
           <video 
             autoPlay 
@@ -113,7 +128,6 @@ export default function Home() {
       {/* Visual Feature Showcase with Videos */}
       <section className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1: Paloquemao Fruits Video */}
           <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
             <video 
               autoPlay 
@@ -131,7 +145,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Card 2: Tejo Culture */}
           <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
             <img 
               src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" 
@@ -145,7 +158,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Card 3: Specialty Coffee Video */}
           <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
             <video 
               autoPlay 
@@ -192,11 +204,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Online Reservation Widget */}
+      {/* Online Reservation & Payment Widget */}
       <section id="reserve" className="py-20 px-6 border-t border-[#EAE4DC] bg-[#F7F4EE]">
         <div className="max-w-xl mx-auto bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-8 shadow-xl">
-          <h2 className="font-serif text-2xl font-bold text-[#2C2523] text-center mb-1">Reserve Your Private Tour</h2>
-          <p className="text-xs text-[#786E65] text-center mb-8">Instant confirmation • Small party exclusivity guarantee</p>
+          <div className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-3 mx-auto flex justify-center w-fit">
+            <span>✓ Verified Tour Operator (RNT No. 301817)</span>
+          </div>
+
+          <h2 className="font-serif text-2xl font-bold text-[#2C2523] text-center mb-1">Book Your Private Day Tour</h2>
+          <p className="text-xs text-[#786E65] text-center mb-8">Guaranteed private host & vehicle • Instant receipt</p>
 
           <form onSubmit={handleCheckout} className="space-y-5">
             <div>
@@ -219,13 +235,13 @@ export default function Home() {
               </div>
               {guests === 1 && (
                 <p className="text-[11px] text-[#C85A32] mt-1.5 italic">
-                  *Solo traveler private vehicle & host exclusivity fee applied ($279 total).
+                  *Solo traveler private vehicle & host exclusivity rate ($279 total).
                 </p>
               )}
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Select Date</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Preferred Tour Date</label>
               <input 
                 type="date" 
                 name="date"
@@ -264,11 +280,11 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Hotel or Airbnb Address (For Pickup)</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Pickup Hotel or Address (Bogotá)</label>
               <input 
                 type="text" 
                 name="pickupLocation"
-                placeholder="Hotel name or street address in Bogotá"
+                placeholder="e.g. Four Seasons Casa Medina / Hotel address"
                 required
                 value={formData.pickupLocation}
                 onChange={handleChange}
@@ -276,9 +292,42 @@ export default function Home() {
               />
             </div>
 
+            {/* Payment Method Selector */}
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Select Booking Mode</label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('card')}
+                  className={`p-3 rounded-md border text-left transition ${
+                    paymentMethod === 'card'
+                      ? 'border-[#C85A32] bg-[#FDFBF7] shadow-sm ring-1 ring-[#C85A32]'
+                      : 'border-[#D6CEC3] bg-white text-[#5C534E]'
+                  }`}
+                >
+                  <div className="font-semibold text-xs text-[#2C2523]">💳 Pay Online (Stripe)</div>
+                  <div className="text-[11px] text-[#786E65] mt-0.5">Credit/Debit, Apple Pay, Amex</div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('whatsapp')}
+                  className={`p-3 rounded-md border text-left transition ${
+                    paymentMethod === 'whatsapp'
+                      ? 'border-[#C85A32] bg-[#FDFBF7] shadow-sm ring-1 ring-[#C85A32]'
+                      : 'border-[#D6CEC3] bg-white text-[#5C534E]'
+                  }`}
+                >
+                  <div className="font-semibold text-xs text-[#2C2523]">💬 WhatsApp Booking</div>
+                  <div className="text-[11px] text-[#786E65] mt-0.5">Chat & coordinate with host</div>
+                </button>
+              </div>
+            </div>
+
+            {/* Price Calculation Box */}
             <div className="p-4 bg-[#F7F4EE] rounded-md border border-[#EAE4DC] flex justify-between items-center">
               <div>
-                <span className="block text-xs text-[#786E65]">Total All-Inclusive Price</span>
+                <span className="block text-xs text-[#786E65]">Total Direct Rate</span>
                 <span className="text-xs text-[#5C534E] font-medium">({guests} {guests === 1 ? 'guest' : 'guests'} × ${pricePerPerson} USD)</span>
               </div>
               <span className="text-2xl font-serif font-bold text-[#C85A32]">${totalPrice} USD</span>
@@ -288,7 +337,9 @@ export default function Home() {
               type="submit"
               className="w-full py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md cursor-pointer flex items-center justify-center gap-2"
             >
-              Confirm Reservation & Request Availability
+              {paymentMethod === 'card' 
+                ? `Proceed to Secure Checkout ($${totalPrice} USD)` 
+                : 'Confirm & Message on WhatsApp'}
             </button>
 
             <div className="flex items-center justify-center gap-4 text-xs text-[#786E65] pt-1">
@@ -300,11 +351,62 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust & Legal Verification Grid */}
+      <section className="bg-[#232F28] text-[#F4F1DE] py-16 px-6 border-t border-[#1C2620]">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            
+            {/* RNT Credential */}
+            <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
+              <div className="text-2xl mb-2">🏛️</div>
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">MinCIT Verified</h4>
+              <p className="text-base font-serif font-bold text-white mt-1">RNT No. 301817</p>
+              <p className="text-xs text-neutral-300 mt-1">Agencia de Viajes Operadora certificada por Confecámaras.</p>
+            </div>
+
+            {/* Chamber of Commerce */}
+            <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
+              <div className="text-2xl mb-2">📜</div>
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Legal Commerce</h4>
+              <p className="text-base font-serif font-bold text-white mt-1">Cámara de Comercio</p>
+              <p className="text-xs text-neutral-300 mt-1">Matrícula mercantil de Bogotá D.C. • NIT: 1053851978-2</p>
+            </div>
+
+            {/* Payment Guarantee */}
+            <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
+              <div className="text-2xl mb-2">🔒</div>
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Encrypted Processing</h4>
+              <p className="text-base font-serif font-bold text-white mt-1">Stripe 256-Bit SSL</p>
+              <p className="text-xs text-neutral-300 mt-1">Direct card protection, Apple Pay, Google Pay & zero hidden fees.</p>
+            </div>
+
+            {/* Booking Protection */}
+            <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
+              <div className="text-2xl mb-2">🛡️</div>
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Flexible Terms</h4>
+              <p className="text-base font-serif font-bold text-white mt-1">Free Cancellation</p>
+              <p className="text-xs text-neutral-300 mt-1">Full 100% refund up to 24 hours before pickup time.</p>
+            </div>
+
+          </div>
+
+          {/* Mandatory Colombian Regulatory Disclaimer */}
+          <div className="border-t border-emerald-900/60 pt-8 text-center text-xs text-neutral-400 space-y-2 max-w-4xl mx-auto leading-relaxed">
+            <p>
+              <strong>Bogotá Unlocked</strong> is a licensed tour operator registered with the Colombian National Tourism Registry (<strong>RNT No. 301817</strong>), regulated by the Ministry of Commerce, Industry, and Tourism.
+            </p>
+            <p className="text-[11px] text-neutral-400">
+              In strict compliance with Law 679 of 2001 and Law 1336 of 2009, Bogotá Unlocked rejects and denounces the commercial sexual exploitation of children and adolescents (ESCNNA) in tourism.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="border-t border-[#EAE4DC] py-12 px-6 text-center text-xs text-[#786E65] bg-[#FDFBF7]">
-        <p className="font-serif font-bold text-[#2C2523] mb-1">Bogotá Unlocked</p>
-        <p className="mb-1">Registered Tourism Operator • Bogotá Chamber of Commerce</p>
-        <p>Bogotá, Colombia</p>
+      <footer className="bg-[#1C2620] text-neutral-400 py-8 px-6 text-center text-xs border-t border-neutral-800">
+        <p className="font-serif text-sm font-bold text-white mb-1">Bogotá Unlocked</p>
+        <p className="mb-1">Carrera 27 K Sur 71 K 21 • Bogotá D.C., Colombia</p>
+        <p className="text-neutral-400 text-[11px]">© 2026 Bogotá Unlocked. All rights reserved.</p>
       </footer>
     </div>
   );
