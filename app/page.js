@@ -4,7 +4,8 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [guests, setGuests] = useState(2);
-  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' | 'whatsapp'
+  const [paymentMethod, setPaymentMethod] = useState('whatsapp');
+
   const [formData, setFormData] = useState({
     date: '',
     name: '',
@@ -15,138 +16,340 @@ export default function Home() {
   const pricePerPerson = guests === 1 ? 279 : 199;
   const totalPrice = guests * pricePerPerson;
 
-  // Enlaces de pago directos de Stripe
-  const stripePaymentLinks = {
-    1: 'https://buy.stripe.com/test_1guest_279',
-    2: 'https://buy.stripe.com/test_2guests_398',
-    3: 'https://buy.stripe.com/test_3guests_597',
-    4: 'https://buy.stripe.com/test_4guests_796',
-  };
-
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleCheckout = (e) => {
     e.preventDefault();
 
-    if (paymentMethod === 'card') {
-      const checkoutUrl = stripePaymentLinks[guests] || stripePaymentLinks[2];
-      window.open(checkoutUrl, '_blank');
-    } else {
-      const message = `Hi! I'd like to reserve the Bogotá Unlocked Private Tour for ${guests} guest(s) on date: ${formData.date || 'TBD'}. Name: ${formData.name}, Pickup: ${formData.pickupLocation}. Total: $${totalPrice} USD.`;
-      window.open(`https://wa.me/573152551212?text=${encodeURIComponent(message)}`, '_blank');
-    }
+    const message = `Hi! I'd like to check availability for the Bogotá Unlocked Private Tour.
+
+Guests: ${guests}
+Preferred date: ${formData.date || 'TBD'}
+Name: ${formData.name}
+Email: ${formData.email}
+Pickup location: ${formData.pickupLocation}
+Estimated total: $${totalPrice} USD`;
+
+    window.open(
+      `https://wa.me/573152551212?text=${encodeURIComponent(message)}`,
+      '_blank'
+    );
   };
 
+  const faqs = [
+    {
+      question: 'Is this a private tour?',
+      answer:
+        'Yes. The experience is designed for your private group rather than a large shared tour. Your day includes private transportation and a dedicated local host.',
+    },
+    {
+      question: 'What is included in the price?',
+      answer:
+        'The experience includes private transportation, hotel pickup and return, a dedicated local host, the planned itinerary, admissions listed in the itinerary, local food experiences, lunch, specialty coffee and the Tejo experience.',
+    },
+    {
+      question: 'How many people can join?',
+      answer:
+        'The current booking form supports private groups of 1 to 4 guests. For larger groups, contact the host directly through WhatsApp.',
+    },
+    {
+      question: 'Where can you pick us up?',
+      answer:
+        'The current service area includes accommodations in areas such as Chapinero, Usaquén and El Chicó. Enter your hotel or pickup address when requesting availability.',
+    },
+    {
+      question: 'What happens after I request a date?',
+      answer:
+        'Your request opens WhatsApp with the details you entered. The host can then confirm availability and coordinate the final booking details with you.',
+    },
+    {
+      question: 'What happens if the weather changes?',
+      answer:
+        'Some activities can be affected by weather or operational conditions. The host will coordinate any necessary itinerary adjustments with you.',
+    },
+    {
+      question: 'Can I cancel my reservation?',
+      answer:
+        'The current stated cancellation policy is a full refund up to 24 hours before the pickup time. Final booking terms should be confirmed with the host before payment.',
+    },
+    {
+      question: 'Do I need to speak Spanish?',
+      answer:
+        'No. The experience is designed for international visitors and includes a dedicated local host. Ask the host about language availability when confirming your booking.',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[#2C2523] font-sans antialiased selection:bg-[#E07A5F] selection:text-white">
-      {/* Top Banner */}
-      <div className="bg-[#2D3E35] text-[#F4F1DE] text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
-        Official MinCIT Registered Operator • RNT No. 301817 • Small-Party Private Exclusivity
+    <div className="min-h-screen bg-[#FDFBF7] text-[#2C2523] font-sans antialiased selection:bg-[#C85A32] selection:text-white">
+
+      {/* TOP TRUST BANNER */}
+      <div className="bg-[#2D3E35] text-[#F4F1DE] text-[10px] sm:text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
+        Official MinCIT Registered Operator • RNT No. 301817 • Private Small-Group Experience
       </div>
 
-      {/* Navigation */}
-      <header className="border-b border-[#EAE4DC] bg-[#FDFBF7]/90 backdrop-blur sticky top-0 z-50 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div>
-            <span className="text-2xl font-serif font-bold tracking-tight text-[#2C2523]">
-              BOGOTÁ <span className="text-[#C85A32] italic font-normal">UNLOCKED</span>
+      {/* NAVIGATION */}
+      <header className="border-b border-[#EAE4DC] bg-[#FDFBF7]/95 backdrop-blur sticky top-0 z-50 px-5 sm:px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+
+          <a href="#" className="shrink-0">
+            <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#2C2523]">
+              BOGOTÁ{' '}
+              <span className="text-[#C85A32] italic font-normal">
+                UNLOCKED
+              </span>
             </span>
-          </div>
-          <div className="flex items-center space-x-6">
+          </a>
+
+          <div className="flex items-center gap-3 sm:gap-6">
+
             <a
               href="https://wa.me/573152551212"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase text-[#5C534E] hover:text-[#C85A32] transition"
             >
-              Direct Host Contact
+              WhatsApp Host
             </a>
+
             <a
               href="#reserve"
-              className="bg-[#C85A32] hover:bg-[#B04A25] text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-md shadow-sm transition"
+              className="bg-[#C85A32] hover:bg-[#B04A25] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-4 sm:px-5 py-2.5 rounded-md shadow-sm transition"
             >
-              Book Your Day
+              Check Availability
             </a>
+
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative px-6 pt-16 pb-16 max-w-5xl mx-auto text-center">
-        <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-[#EAE4DC] text-[#2D3E35] text-xs font-semibold tracking-wide uppercase mb-6">
+      {/* HERO */}
+      <section className="relative px-5 sm:px-6 pt-14 sm:pt-20 pb-14 sm:pb-20 max-w-6xl mx-auto text-center">
+
+        <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#EAE4DC] text-[#2D3E35] text-[10px] sm:text-xs font-semibold tracking-wide uppercase mb-6">
           <span className="w-2 h-2 rounded-full bg-[#C85A32]"></span>
-          <span>Exclusive 1-Day Private Immersion</span>
+          <span>Private Bogotá Day Experience</span>
         </div>
 
-        <h1 className="text-4xl sm:text-6xl font-serif font-bold tracking-tight text-[#2C2523] leading-[1.15] mb-6">
-          Experience the authentic soul of Bogotá in one <span className="italic text-[#C85A32]">effortless</span> day.
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold tracking-tight text-[#2C2523] leading-[1.08] mb-6 max-w-5xl mx-auto">
+          One private day.
+          <br />
+          <span className="italic text-[#C85A32]">
+            The best of Bogotá.
+          </span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-[#5C534E] max-w-2xl mx-auto mb-10 leading-relaxed">
-          From exotic fruit cupping in vibrant markets and panoramic high-altitude sanctuaries to colonial gold and explosive gunpowder tejo. Complete door-to-door private transport, all admissions, and your dedicated local host.
+        <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-7 leading-relaxed">
+          Experience Bogotá beyond the usual city tour — private transportation,
+          a dedicated local host, exotic fruits, Monserrate, Colombian food,
+          the Gold Museum, specialty coffee and an unforgettable game of Tejo.
         </p>
 
-        {/* Hero Video Banner */}
-        <div className="relative w-full h-[360px] sm:h-[480px] overflow-hidden rounded-2xl shadow-xl mb-12 bg-neutral-900">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-9">
+          <span>✓ Private experience</span>
+          <span>✓ Hotel pickup & return</span>
+          <span>✓ From $199/person</span>
+        </div>
+
+        {/* HERO VIDEO */}
+        <div className="relative w-full h-[330px] sm:h-[480px] overflow-hidden rounded-2xl shadow-xl mb-9 bg-neutral-900">
+
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
             className="w-full h-full object-cover"
           >
             <source src="/monserrate.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 flex items-end justify-between p-6 sm:p-8 text-white">
-            <span className="text-sm font-medium tracking-wide">
-              Monserrate Sanctuary (3,152m) • Private Fast-Track Access
-            </span>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 flex items-end justify-between p-5 sm:p-8 text-white">
+
+            <div className="text-left">
+              <span className="text-sm font-medium tracking-wide">
+                Monserrate Sanctuary
+              </span>
+
+              <span className="block text-xs text-white/75 mt-1">
+                3,152m above Bogotá
+              </span>
+            </div>
+
             <span className="text-xs uppercase tracking-widest text-amber-300 font-bold hidden sm:inline-block">
               Panoramic Andean Views
             </span>
+
           </div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+
           <a
             href="#reserve"
             className="w-full sm:w-auto px-8 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
           >
-            Reserve Your Private Date
+            Check Availability
           </a>
+
           <a
-            href="#itinerary"
+            href="#included"
             className="w-full sm:w-auto px-8 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
           >
-            Explore Full Itinerary
+            See What's Included
           </a>
+
+        </div>
+
+      </section>
+
+      {/* WHY BOGOTÁ UNLOCKED */}
+      <section className="bg-[#F7F4EE] border-y border-[#EAE4DC] py-16 sm:py-20 px-5 sm:px-6">
+
+        <div className="max-w-6xl mx-auto">
+
+          <div className="text-center max-w-2xl mx-auto mb-12">
+
+            <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+              Why Bogotá Unlocked
+            </span>
+
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C2523] mt-2">
+              Bogotá without the planning headache.
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#5C534E] mt-4 leading-relaxed">
+              One carefully organized private day designed to help you
+              experience more of Bogotá without spending your vacation
+              figuring out transportation, tickets and logistics.
+            </p>
+
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            <div className="bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-6">
+              <div className="text-2xl mb-4">🚗</div>
+
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Private
+              </h3>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                No large tour buses or waiting for strangers. Your day is
+                organized around your private group.
+              </p>
+            </div>
+
+            <div className="bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-6">
+              <div className="text-2xl mb-4">👤</div>
+
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Local
+              </h3>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                A dedicated local host helps connect the places, food and
+                traditions you experience throughout the day.
+              </p>
+            </div>
+
+            <div className="bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-6">
+              <div className="text-2xl mb-4">🗓️</div>
+
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Organized
+              </h3>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                Transportation, admissions and the day's route are planned
+                so you can focus on the experience.
+              </p>
+            </div>
+
+            <div className="bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-6">
+              <div className="text-2xl mb-4">🇨🇴</div>
+
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Local Culture
+              </h3>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                Go beyond the standard postcard stops with Colombian food,
+                coffee and the traditional game of Tejo.
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
 
-      {/* Visual Feature Showcase with Videos */}
-      <section className="max-w-7xl mx-auto px-6 py-8">
+      {/* EXPERIENCE */}
+      <section
+        id="experience"
+        className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-20"
+      >
+
+        <div className="text-center max-w-2xl mx-auto mb-12">
+
+          <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+            The Experience
+          </span>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C2523] mt-2">
+            Taste it. See it. Play it.
+          </h2>
+
+          <p className="text-sm sm:text-base text-[#5C534E] mt-4 leading-relaxed">
+            Bogotá is more than monuments. This experience combines food,
+            altitude, history, coffee and one of Colombia's most distinctive
+            traditional sports.
+          </p>
+
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
+
+          {/* FRUITS */}
+          <div className="group relative h-[380px] sm:h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             >
               <source src="/fruits.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">Paloquemao Market</span>
-              <h3 className="font-serif text-xl font-bold">Exotic Native Fruit Tasting</h3>
-              <p className="text-xs text-neutral-200 mt-1">Lulo, passionfruit, granadilla & freshly baked Boyacense arepas.</p>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+
+              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">
+                Paloquemao Market
+              </span>
+
+              <h3 className="font-serif text-xl font-bold">
+                Exotic Native Fruit Tasting
+              </h3>
+
+              <p className="text-xs text-neutral-200 mt-1 leading-relaxed">
+                Discover Colombian fruits, Boyacense arepas and local flavors
+                inside one of Bogotá's most vibrant markets.
+              </p>
+
             </div>
           </div>
 
-          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+          {/* TEJO */}
+          <div className="group relative h-[380px] sm:h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+
             <video
               autoPlay
               loop
@@ -157,75 +360,440 @@ export default function Home() {
               <source src="/tejo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-                
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">National Sport</span>
-              <h3 className="font-serif text-xl font-bold">Gunpowder Tejo & Craft Beer</h3>
-              <p className="text-xs text-neutral-200 mt-1">Experience Colombia's explosive 500-year-old indigenous game.</p>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+
+              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">
+                Traditional Sport
+              </span>
+
+              <h3 className="font-serif text-xl font-bold">
+                Gunpowder Tejo & Craft Beer
+              </h3>
+
+              <p className="text-xs text-neutral-200 mt-1 leading-relaxed">
+                Learn the rules, throw the steel puck and experience one of
+                Colombia's most distinctive traditional games.
+              </p>
+
             </div>
           </div>
 
-          <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
-            <video 
-              autoPlay 
-              loop 
-              muted 
-              playsInline 
+          {/* COFFEE */}
+          <div className="group relative h-[380px] sm:h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
+
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
             >
               <source src="/coffee.mp4" type="video/mp4" />
             </video>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
-              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">Specialty Coffee</span>
-              <h3 className="font-serif text-xl font-bold">Third-Wave Cupping Session</h3>
-              <p className="text-xs text-neutral-200 mt-1">Single-origin pour-over methods guided by certified local baristas.</p>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
+
+              <span className="text-xs uppercase font-bold tracking-widest text-amber-300">
+                Colombian Coffee
+              </span>
+
+              <h3 className="font-serif text-xl font-bold">
+                Specialty Coffee Cupping
+              </h3>
+
+              <p className="text-xs text-neutral-200 mt-1 leading-relaxed">
+                Explore Colombian coffee through a guided specialty tasting
+                with local expertise.
+              </p>
+
             </div>
           </div>
+
         </div>
       </section>
 
-      {/* Itinerary Timeline */}
-      <section id="itinerary" className="py-20 px-6 max-w-4xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-[#C85A32]">The Signature Itinerary</span>
-          <h2 className="font-serif text-3xl font-bold text-[#2C2523] mt-2">Everything Planned, Zero Friction</h2>
+      {/* WHAT'S INCLUDED */}
+      <section
+        id="included"
+        className="bg-[#2D3E35] text-[#F4F1DE] py-16 sm:py-20 px-5 sm:px-6"
+      >
+
+        <div className="max-w-6xl mx-auto">
+
+          <div className="max-w-2xl mb-12">
+
+            <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-amber-300">
+              Everything planned
+            </span>
+
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold mt-2">
+              One price. One private day.
+            </h2>
+
+            <p className="text-sm sm:text-base text-neutral-300 mt-4 leading-relaxed">
+              The idea is simple: you spend the day experiencing Bogotá,
+              while the logistics are handled for you.
+            </p>
+
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-8">
+
+            {[
+              [
+                '🚗',
+                'Private Transportation',
+                'Door-to-door transportation throughout the planned experience.',
+              ],
+              [
+                '👤',
+                'Dedicated Local Host',
+                "A local host accompanies you through the day's experiences.",
+              ],
+              [
+                '🏨',
+                'Hotel Pickup & Return',
+                'Pickup and return coordination within the service area.',
+              ],
+              [
+                '🎟️',
+                'Planned Admissions',
+                'Admissions listed as part of the itinerary are coordinated for you.',
+              ],
+              [
+                '🍊',
+                'Fruit Experience',
+                'Native Colombian fruit tasting at Paloquemao Market.',
+              ],
+              [
+                '🍽️',
+                'Traditional Lunch',
+                'A Colombian lunch experience during the day.',
+              ],
+              [
+                '☕',
+                'Specialty Coffee',
+                'A guided Colombian coffee tasting experience.',
+              ],
+              [
+                '💥',
+                'Tejo Experience',
+                'An introduction to traditional Tejo with the private group.',
+              ],
+              [
+                '🍺',
+                'Craft Beer',
+                'Cold beer accompanying the Tejo experience.',
+              ],
+            ].map(([icon, title, description]) => (
+
+              <div key={title} className="flex gap-4">
+
+                <div className="shrink-0 text-xl">
+                  {icon}
+                </div>
+
+                <div>
+
+                  <h3 className="font-serif text-lg font-bold text-white">
+                    {title}
+                  </h3>
+
+                  <p className="text-sm text-neutral-300 mt-1 leading-relaxed">
+                    {description}
+                  </p>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ITINERARY */}
+      <section
+        id="itinerary"
+        className="py-16 sm:py-20 px-5 sm:px-6 max-w-4xl mx-auto"
+      >
+
+        <div className="text-center mb-14">
+
+          <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+            The Signature Itinerary
+          </span>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C2523] mt-2">
+            Everything planned. Zero friction.
+          </h2>
+
+          <p className="text-sm sm:text-base text-[#5C534E] mt-4 max-w-2xl mx-auto leading-relaxed">
+            A full day designed to connect Bogotá's food, history, views,
+            coffee and local traditions without making you plan every stop.
+          </p>
+
         </div>
 
         <div className="space-y-8 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-[#D6CEC3]">
+
           {[
-            { time: "08:00 AM", title: "Private Hotel Lobby Pickup", desc: "Private vehicle meets you directly at your accommodation in Chapinero, Usaquén, or El Chicó." },
-            { time: "08:45 AM", title: "Paloquemao Exotic Fruit Immersion", desc: "Sample 7+ exotic native fruits alongside hot Boyacense arepas and fresh local coffee." },
-            { time: "10:45 AM", title: "Monserrate Sanctuary (Fast-Track)", desc: "Skip ticket queues and take the cable car or funicular up to 3,152m for panoramic city vistas." },
-            { time: "01:00 PM", title: "Traditional Colonial Courtyard Lunch", desc: "Sit-down multi-course lunch featuring authentic Ajiaco Santafereño soup, artisan refreshments, and dessert." },
-            { time: "02:30 PM", title: "La Candelaria & The Gold Museum", desc: "Colonial street art alleys, Plaza de Bolívar, and private access through pre-Hispanic gold treasures." },
-            { time: "05:30 PM", title: "Specialty Coffee Cupping & Gunpowder Tejo", desc: "Interactive third-wave coffee tasting, followed by throwing steel pucks at gunpowder targets with cold beer." },
-            { time: "07:00 PM", title: "Safe Hotel Return", desc: "Direct door-to-door return in your private vehicle safely avoiding rush-hour transit." },
+            {
+              time: '08:00 AM',
+              title: 'Private Hotel Lobby Pickup',
+              desc: 'Private vehicle meets you directly at your accommodation in Chapinero, Usaquén, or El Chicó.',
+            },
+            {
+              time: '08:45 AM',
+              title: 'Paloquemao Exotic Fruit Immersion',
+              desc: 'Sample native Colombian fruits alongside Boyacense arepas and fresh local flavors.',
+            },
+            {
+              time: '10:45 AM',
+              title: 'Monserrate Sanctuary',
+              desc: 'Travel up to 3,152m for panoramic views over Bogotá. Cable car or funicular access is coordinated according to conditions and availability.',
+            },
+            {
+              time: '01:00 PM',
+              title: 'Traditional Colombian Lunch',
+              desc: 'Sit-down lunch featuring Colombian cuisine and local refreshments.',
+            },
+            {
+              time: '02:30 PM',
+              title: 'La Candelaria & The Gold Museum',
+              desc: 'Explore colonial streets, Plaza de Bolívar and pre-Hispanic gold collections.',
+            },
+            {
+              time: '05:30 PM',
+              title: 'Specialty Coffee & Gunpowder Tejo',
+              desc: 'Interactive Colombian coffee tasting followed by a traditional Tejo experience with cold beer.',
+            },
+            {
+              time: '07:00 PM',
+              title: 'Hotel Return',
+              desc: 'Direct return to your accommodation in your private vehicle.',
+            },
           ].map((item, idx) => (
+
             <div key={idx} className="relative pl-10">
+
               <div className="absolute left-1.5 top-1.5 w-4 h-4 rounded-full bg-[#FDFBF7] border-2 border-[#C85A32]"></div>
-              <span className="text-xs font-mono font-bold text-[#C85A32] tracking-wider block mb-1">{item.time}</span>
-              <h3 className="font-serif text-lg font-bold text-[#2C2523] mb-1">{item.title}</h3>
-              <p className="text-sm text-[#5C534E] leading-relaxed">{item.desc}</p>
+
+              <span className="text-xs font-mono font-bold text-[#C85A32] tracking-wider block mb-1">
+                {item.time}
+              </span>
+
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-[#2C2523] mb-1">
+                {item.title}
+              </h3>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                {item.desc}
+              </p>
+
             </div>
+
           ))}
+
         </div>
       </section>
 
-      {/* Online Reservation & Payment Widget */}
-      <section id="reserve" className="py-20 px-6 border-t border-[#EAE4DC] bg-[#F7F4EE]">
-        <div className="max-w-xl mx-auto bg-[#FDFBF7] border border-[#EAE4DC] rounded-xl p-8 shadow-xl">
-          <div className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-3 mx-auto flex justify-center w-fit">
-            <span>✓ Verified Tour Operator (RNT No. 301817)</span>
+      {/* PRICING */}
+      <section className="bg-[#F7F4EE] border-y border-[#EAE4DC] py-16 sm:py-20 px-5 sm:px-6">
+
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+          <div>
+
+            <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+              Private Experience
+            </span>
+
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#2C2523] mt-2 leading-tight">
+              Your group.
+              <br />
+              Your vehicle.
+              <br />
+              Your Bogotá day.
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#5C534E] mt-5 leading-relaxed max-w-xl">
+              The experience is designed for small private groups who want
+              to see more of Bogotá without joining a large organized tour.
+            </p>
+
+            <div className="mt-7 space-y-3 text-sm text-[#5C534E]">
+
+              <div className="flex gap-3">
+                <span className="text-[#C85A32]">✓</span>
+                <span>Private transportation</span>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-[#C85A32]">✓</span>
+                <span>Dedicated local host</span>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-[#C85A32]">✓</span>
+                <span>Food, culture, coffee and Tejo</span>
+              </div>
+
+              <div className="flex gap-3">
+                <span className="text-[#C85A32]">✓</span>
+                <span>Hotel pickup and return</span>
+              </div>
+
+            </div>
+
           </div>
 
-          <h2 className="font-serif text-2xl font-bold text-[#2C2523] text-center mb-1">Book Your Private Day Tour</h2>
-          <p className="text-xs text-[#786E65] text-center mb-8">Guaranteed private host & vehicle • Instant receipt</p>
+          <div className="bg-[#FDFBF7] border border-[#EAE4DC] rounded-2xl p-7 sm:p-9 shadow-lg">
+
+            <div className="text-center mb-7">
+
+              <span className="text-xs uppercase tracking-widest font-bold text-[#786E65]">
+                Private Tour Pricing
+              </span>
+
+              <div className="mt-3 text-5xl font-serif font-bold text-[#C85A32]">
+                $199
+              </div>
+
+              <div className="text-sm text-[#786E65]">
+                USD per person
+              </div>
+
+            </div>
+
+            <div className="space-y-3 border-y border-[#EAE4DC] py-6">
+
+              <div className="flex justify-between text-sm">
+                <span className="text-[#5C534E]">1 guest</span>
+                <strong>$279 USD</strong>
+              </div>
+
+              <div className="flex justify-between text-sm">
+                <span className="text-[#5C534E]">2 guests</span>
+                <strong>$398 USD</strong>
+              </div>
+
+              <div className="flex justify-between text-sm">
+                <span className="text-[#5C534E]">3 guests</span>
+                <strong>$597 USD</strong>
+              </div>
+
+              <div className="flex justify-between text-sm">
+                <span className="text-[#5C534E]">4 guests</span>
+                <strong>$796 USD</strong>
+              </div>
+
+            </div>
+
+            <a
+              href="#reserve"
+              className="mt-7 w-full inline-flex items-center justify-center py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition"
+            >
+              Check Availability
+            </a>
+
+            <p className="text-[11px] text-[#786E65] text-center mt-4 leading-relaxed">
+              Final availability is confirmed directly with the host before
+              payment.
+            </p>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-16 sm:py-20 px-5 sm:px-6 max-w-4xl mx-auto">
+
+        <div className="text-center mb-12">
+
+          <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+            Before You Book
+          </span>
+
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C2523] mt-2">
+            Frequently Asked Questions
+          </h2>
+
+        </div>
+
+        <div className="space-y-3">
+
+          {faqs.map((faq) => (
+
+            <details
+              key={faq.question}
+              className="group border border-[#EAE4DC] rounded-xl bg-[#FDFBF7] px-5 py-4"
+            >
+
+              <summary className="cursor-pointer list-none flex items-center justify-between gap-4 font-serif font-bold text-[#2C2523]">
+
+                <span>{faq.question}</span>
+
+                <span className="text-[#C85A32] text-xl shrink-0 group-open:rotate-45 transition">
+                  +
+                </span>
+
+              </summary>
+
+              <p className="text-sm text-[#5C534E] leading-relaxed mt-4 pr-6">
+                {faq.answer}
+              </p>
+
+            </details>
+
+          ))}
+
+        </div>
+      </section>
+
+      {/* RESERVATION */}
+      <section
+        id="reserve"
+        className="py-16 sm:py-20 px-5 sm:px-6 border-t border-[#EAE4DC] bg-[#F7F4EE]"
+      >
+
+        <div className="max-w-xl mx-auto bg-[#FDFBF7] border border-[#EAE4DC] rounded-2xl p-6 sm:p-8 shadow-xl">
+
+          <div className="text-center mb-8">
+
+            <div className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-4">
+              <span>✓</span>
+              <span>Licensed Tour Operator • RNT 301817</span>
+            </div>
+
+            <h2 className="font-serif text-3xl font-bold text-[#2C2523]">
+              Check Availability
+            </h2>
+
+            <p className="text-sm text-[#786E65] mt-2 leading-relaxed">
+              Tell us when you would like to visit Bogotá. We'll confirm
+              availability and help you finalize your private experience.
+            </p>
+
+          </div>
 
           <form onSubmit={handleCheckout} className="space-y-5">
+
+            {/* GUESTS */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Number of Guests</label>
+
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">
+                Number of Guests
+              </label>
+
               <div className="grid grid-cols-4 gap-2">
+
                 {[1, 2, 3, 4].map((num) => (
+
                   <button
                     key={num}
                     onClick={() => setGuests(num)}
@@ -238,32 +806,58 @@ export default function Home() {
                   >
                     {num} {num === 1 ? 'Guest' : 'Guests'}
                   </button>
+
                 ))}
+
               </div>
+
               {guests === 1 && (
-                <p className="text-[11px] text-[#C85A32] mt-1.5 italic">
-                  *Solo traveler private vehicle & host exclusivity rate ($279 total).
+                <p className="text-[11px] text-[#C85A32] mt-2 italic">
+                  Solo traveler private vehicle & host exclusivity rate:
+                  $279 total.
                 </p>
               )}
+
             </div>
 
+            {/* DATE */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Preferred Tour Date</label>
-              <input 
-                type="date" 
+
+              <label
+                htmlFor="date"
+                className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2"
+              >
+                Preferred Tour Date
+              </label>
+
+              <input
+                id="date"
+                type="date"
                 name="date"
                 required
                 value={formData.date}
                 onChange={handleChange}
+                min={new Date().toISOString().split('T')[0]}
                 className="w-full bg-white border border-[#D6CEC3] rounded-md p-3 text-sm text-[#2C2523] focus:outline-none focus:border-[#C85A32]"
               />
+
             </div>
 
+            {/* NAME + EMAIL */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Full Name</label>
-                <input 
-                  type="text" 
+
+                <label
+                  htmlFor="name"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1"
+                >
+                  Full Name
+                </label>
+
+                <input
+                  id="name"
+                  type="text"
                   name="name"
                   placeholder="e.g. John Miller"
                   required
@@ -271,11 +865,21 @@ export default function Home() {
                   onChange={handleChange}
                   className="w-full bg-white border border-[#D6CEC3] rounded-md p-3 text-sm text-[#2C2523] focus:outline-none focus:border-[#C85A32]"
                 />
+
               </div>
+
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Email Address</label>
-                <input 
-                  type="email" 
+
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1"
+                >
+                  Email Address
+                </label>
+
+                <input
+                  id="email"
+                  type="email"
                   name="email"
                   placeholder="john@example.com"
                   required
@@ -283,138 +887,300 @@ export default function Home() {
                   onChange={handleChange}
                   className="w-full bg-white border border-[#D6CEC3] rounded-md p-3 text-sm text-[#2C2523] focus:outline-none focus:border-[#C85A32]"
                 />
+
               </div>
+
             </div>
 
+            {/* PICKUP */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1">Pickup Hotel or Address (Bogotá)</label>
-              <input 
-                type="text" 
+
+              <label
+                htmlFor="pickupLocation"
+                className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-1"
+              >
+                Pickup Hotel or Address
+              </label>
+
+              <input
+                id="pickupLocation"
+                type="text"
                 name="pickupLocation"
-                placeholder="e.g. Four Seasons Casa Medina / Hotel address"
+                placeholder="e.g. Hotel in Chapinero"
                 required
                 value={formData.pickupLocation}
                 onChange={handleChange}
                 className="w-full bg-white border border-[#D6CEC3] rounded-md p-3 text-sm text-[#2C2523] focus:outline-none focus:border-[#C85A32]"
               />
+
             </div>
 
-            {/* Payment Method Selector */}
+            {/* BOOKING METHOD */}
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">Select Booking Mode</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('card')}
-                  className={`p-3 rounded-md border text-left transition ${
-                    paymentMethod === 'card'
-                      ? 'border-[#C85A32] bg-[#FDFBF7] shadow-sm ring-1 ring-[#C85A32]'
-                      : 'border-[#D6CEC3] bg-white text-[#5C534E]'
-                  }`}
-                >
-                  <div className="font-semibold text-xs text-[#2C2523]">💳 Pay Online (Stripe)</div>
-                  <div className="text-[11px] text-[#786E65] mt-0.5">Credit/Debit, Apple Pay, Amex</div>
-                </button>
+
+              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">
+                How would you like to continue?
+              </label>
+
+              <div className="grid grid-cols-1 gap-2">
 
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('whatsapp')}
-                  className={`p-3 rounded-md border text-left transition ${
+                  className={`p-4 rounded-md border text-left transition ${
                     paymentMethod === 'whatsapp'
                       ? 'border-[#C85A32] bg-[#FDFBF7] shadow-sm ring-1 ring-[#C85A32]'
                       : 'border-[#D6CEC3] bg-white text-[#5C534E]'
                   }`}
                 >
-                  <div className="font-semibold text-xs text-[#2C2523]">💬 WhatsApp Booking</div>
-                  <div className="text-[11px] text-[#786E65] mt-0.5">Chat & coordinate with host</div>
+
+                  <div className="font-semibold text-sm text-[#2C2523]">
+                    💬 Check availability on WhatsApp
+                  </div>
+
+                  <div className="text-xs text-[#786E65] mt-1">
+                    Confirm the date and booking details directly with the host.
+                  </div>
+
                 </button>
+
               </div>
+
             </div>
 
-            {/* Price Calculation Box */}
-            <div className="p-4 bg-[#F7F4EE] rounded-md border border-[#EAE4DC] flex justify-between items-center">
+            {/* PRICE */}
+            <div className="p-4 bg-[#F7F4EE] rounded-md border border-[#EAE4DC] flex justify-between items-center gap-4">
+
               <div>
-                <span className="block text-xs text-[#786E65]">Total Direct Rate</span>
-                <span className="text-xs text-[#5C534E] font-medium">({guests} {guests === 1 ? 'guest' : 'guests'} × ${pricePerPerson} USD)</span>
+
+                <span className="block text-xs text-[#786E65]">
+                  Estimated Total
+                </span>
+
+                <span className="text-xs text-[#5C534E] font-medium">
+                  {guests} {guests === 1 ? 'guest' : 'guests'} × ${pricePerPerson} USD
+                </span>
+
               </div>
-              <span className="text-2xl font-serif font-bold text-[#C85A32]">${totalPrice} USD</span>
+
+              <span className="text-2xl font-serif font-bold text-[#C85A32]">
+                ${totalPrice} USD
+              </span>
+
             </div>
 
+            {/* CTA */}
             <button
               type="submit"
               className="w-full py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md cursor-pointer flex items-center justify-center gap-2"
             >
-              {paymentMethod === 'card' 
-                ? `Proceed to Secure Checkout ($${totalPrice} USD)` 
-                : 'Confirm & Message on WhatsApp'}
+              💬 Check Availability on WhatsApp
             </button>
 
-            <div className="flex items-center justify-center gap-4 text-xs text-[#786E65] pt-1">
-              <span>All Taxes & Fees Included</span>
-              <span>•</span>
-              <span>100% Refundable up to 24h prior</span>
-            </div>
+            <p className="text-[11px] text-[#786E65] text-center leading-relaxed">
+              No payment is taken on this step. Availability and final booking
+              details are confirmed with the host first.
+            </p>
+
           </form>
+
         </div>
       </section>
 
-      {/* Trust & Legal Verification Grid */}
-      <section className="bg-[#232F28] text-[#F4F1DE] py-16 px-6 border-t border-[#1C2620]">
+      {/* TRUST / LEGAL */}
+      <section className="bg-[#232F28] text-[#F4F1DE] py-16 px-5 sm:px-6 border-t border-[#1C2620]">
+
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-            
-            {/* RNT Credential */}
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+
             <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
-              <div className="text-2xl mb-2">🏛️</div>
-              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">MinCIT Verified</h4>
-              <p className="text-base font-serif font-bold text-white mt-1">RNT No. 301817</p>
-              <p className="text-xs text-neutral-300 mt-1">Agencia de Viajes Operadora certificada por Confecámaras.</p>
+
+              <div className="text-2xl mb-2">
+                🏛️
+              </div>
+
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                MinCIT Registered
+              </h4>
+
+              <p className="text-base font-serif font-bold text-white mt-1">
+                RNT No. 301817
+              </p>
+
+              <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                Registered tourism operator in Colombia.
+              </p>
+
             </div>
 
-            {/* Chamber of Commerce */}
             <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
-              <div className="text-2xl mb-2">📜</div>
-              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Legal Commerce</h4>
-              <p className="text-base font-serif font-bold text-white mt-1">Cámara de Comercio</p>
-              <p className="text-xs text-neutral-300 mt-1">Matrícula mercantil de Bogotá D.C. • NIT: 1053851978-2</p>
+
+              <div className="text-2xl mb-2">
+                🚗
+              </div>
+
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                Private Experience
+              </h4>
+
+              <p className="text-base font-serif font-bold text-white mt-1">
+                Small-Group Touring
+              </p>
+
+              <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                Designed around your private group.
+              </p>
+
             </div>
 
-            {/* Payment Guarantee */}
             <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
-              <div className="text-2xl mb-2">🔒</div>
-              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Encrypted Processing</h4>
-              <p className="text-base font-serif font-bold text-white mt-1">Stripe 256-Bit SSL</p>
-              <p className="text-xs text-neutral-300 mt-1">Direct card protection, Apple Pay, Google Pay & zero hidden fees.</p>
+
+              <div className="text-2xl mb-2">
+                💬
+              </div>
+
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                Direct Support
+              </h4>
+
+              <p className="text-base font-serif font-bold text-white mt-1">
+                WhatsApp Host
+              </p>
+
+              <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                Confirm your date and questions directly with the host.
+              </p>
+
             </div>
 
-            {/* Booking Protection */}
             <div className="bg-[#2D3E35]/70 p-5 rounded-xl border border-emerald-900/50">
-              <div className="text-2xl mb-2">🛡️</div>
-              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">Flexible Terms</h4>
-              <p className="text-base font-serif font-bold text-white mt-1">Free Cancellation</p>
-              <p className="text-xs text-neutral-300 mt-1">Full 100% refund up to 24 hours before pickup time.</p>
+
+              <div className="text-2xl mb-2">
+                🛡️
+              </div>
+
+              <h4 className="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">
+                Flexible Terms
+              </h4>
+
+              <p className="text-base font-serif font-bold text-white mt-1">
+                Cancellation
+              </p>
+
+              <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
+                Current stated policy: full refund up to 24 hours before pickup.
+              </p>
+
             </div>
 
           </div>
 
-          {/* Mandatory Colombian Regulatory Disclaimer */}
-          <div className="border-t border-emerald-900/60 pt-8 text-center text-xs text-neutral-400 space-y-2 max-w-4xl mx-auto leading-relaxed">
+          <div className="border-t border-emerald-900/60 pt-8 text-center text-xs text-neutral-400 space-y-3 max-w-4xl mx-auto leading-relaxed">
+
             <p>
-              <strong>Bogotá Unlocked</strong> is a licensed tour operator registered with the Colombian National Tourism Registry (<strong>RNT No. 301817</strong>), regulated by the Ministry of Commerce, Industry, and Tourism.
+              <strong>Bogotá Unlocked</strong> is a tourism operator registered
+              with the Colombian National Tourism Registry (
+              <strong>RNT No. 301817</strong>).
             </p>
+
             <p className="text-[11px] text-neutral-400">
-              In strict compliance with Law 679 of 2001 and Law 1336 of 2009, Bogotá Unlocked rejects and denounces the commercial sexual exploitation of children and adolescents (ESCNNA) in tourism.
+              In compliance with applicable Colombian tourism regulations,
+              Bogotá Unlocked rejects and denounces the commercial sexual
+              exploitation of children and adolescents (ESCNNA) in tourism.
             </p>
+
           </div>
+
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#1C2620] text-neutral-400 py-8 px-6 text-center text-xs border-t border-neutral-800">
-        <p className="font-serif text-sm font-bold text-white mb-1">Bogotá Unlocked</p>
-        <p className="mb-1">Carrera 27 K Sur 71 K 21 • Bogotá D.C., Colombia</p>
-        <p className="text-neutral-400 text-[11px]">© 2026 Bogotá Unlocked. All rights reserved.</p>
+      {/* FLOATING WHATSAPP */}
+      <a
+        href="https://wa.me/573152551212"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contact Bogotá Unlocked on WhatsApp"
+        className="fixed bottom-5 right-5 z-50 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-full shadow-xl px-4 py-3 flex items-center gap-2 transition"
+      >
+
+        <span className="text-lg">
+          💬
+        </span>
+
+        <span className="hidden sm:inline text-xs font-bold">
+          WhatsApp
+        </span>
+
+      </a>
+
+      {/* FOOTER */}
+      <footer className="bg-[#1C2620] text-neutral-400 py-9 px-5 sm:px-6 text-center text-xs border-t border-neutral-800">
+
+        <p className="font-serif text-base font-bold text-white mb-2">
+          Bogotá Unlocked
+        </p>
+
+        <p className="mb-4">
+          Bogotá D.C., Colombia
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 mb-5 text-[11px]">
+
+          <span>
+            Private Bogotá Experiences
+          </span>
+
+          <span>
+            •
+          </span>
+
+          <span>
+            RNT No. 301817
+          </span>
+
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] mb-5">
+
+          <a
+            href="#"
+            className="hover:text-white transition"
+          >
+            Privacy Policy
+          </a>
+
+          <a
+            href="#"
+            className="hover:text-white transition"
+          >
+            Terms & Conditions
+          </a>
+
+          <a
+            href="#"
+            className="hover:text-white transition"
+          >
+            Cancellation Policy
+          </a>
+
+          <a
+            href="https://wa.me/573152551212"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white transition"
+          >
+            Contact
+          </a>
+
+        </div>
+
+        <p className="text-neutral-500 text-[11px]">
+          © 2026 Bogotá Unlocked. All rights reserved.
+        </p>
+
       </footer>
+
     </div>
   );
 }
