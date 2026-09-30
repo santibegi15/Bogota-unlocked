@@ -147,11 +147,17 @@ export default function Home() {
           </div>
 
           <div className="group relative h-96 rounded-xl overflow-hidden shadow-md bg-[#EAE4DC]">
-            <img 
-              src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" 
-              alt="Tejo Tradition" 
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-            />
+            >
+              <source src="/tejo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+                
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 text-white">
               <span className="text-xs uppercase font-bold tracking-widest text-amber-300">National Sport</span>
               <h3 className="font-serif text-xl font-bold">Gunpowder Tejo & Craft Beer</h3>
