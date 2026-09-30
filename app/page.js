@@ -15,7 +15,7 @@ export default function Home() {
   const pricePerPerson = guests === 1 ? 279 : 199;
   const totalPrice = guests * pricePerPerson;
 
-  // Enlaces de pago directos de Stripe (puedes reemplazarlos por tus URLs de Stripe Payment Links reales)
+  // Enlaces de pago directos de Stripe
   const stripePaymentLinks = {
     1: 'https://buy.stripe.com/test_1guest_279',
     2: 'https://buy.stripe.com/test_2guests_398',
@@ -98,6 +98,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           >
             <source src="/monserrate.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
           </video>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20 flex items-end justify-between p-6 sm:p-8 text-white">
             <span className="text-sm font-medium tracking-wide">
