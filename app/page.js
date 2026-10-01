@@ -34,7 +34,7 @@ Email: ${formData.email}
 Pickup location: ${formData.pickupLocation}
 Estimated total: $${totalPrice} USD
 
-I understand that a deposit is required to confirm the reservation.`;
+I understand that availability will be confirmed first and that a deposit is required to secure the reservation.`;
 
     window.open(
       `https://wa.me/573152551212?text=${encodeURIComponent(message)}`,
@@ -66,7 +66,7 @@ I understand that a deposit is required to confirm the reservation.`;
     {
       question: 'What happens after I request a date?',
       answer:
-        'Your request opens WhatsApp with the details you entered. The host can then confirm availability and coordinate the final booking details with you. Once availability is confirmed, a secure payment link will be sent via WhatsApp for the reservation deposit.',
+        'Your request opens WhatsApp with the details you entered. The host will confirm availability first. Once your date is confirmed, a secure payment link will be sent to you through WhatsApp for the required deposit. Your reservation is secured once the deposit is paid.',
     },
     {
       question: 'What happens if the weather changes?',
@@ -702,8 +702,8 @@ I understand that a deposit is required to confirm the reservation.`;
             </a>
 
             <p className="text-[11px] text-[#786E65] text-center mt-4 leading-relaxed">
-              Final availability is confirmed directly with the host before
-              payment.
+              Final availability is confirmed directly with the host. A deposit
+              is required to secure the reservation.
             </p>
 
           </div>
@@ -756,6 +756,79 @@ I understand that a deposit is required to confirm the reservation.`;
         </div>
       </section>
 
+      {/* BOOKING CONFIDENCE */}
+      <section className="py-16 sm:py-20 px-5 sm:px-6 bg-[#FDFBF7] border-t border-[#EAE4DC]">
+
+        <div className="max-w-6xl mx-auto">
+
+          <div className="text-center max-w-2xl mx-auto mb-12">
+
+            <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
+              Travel With Confidence
+            </span>
+
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2C2523] mt-2">
+              A private experience, handled personally.
+            </h2>
+
+            <p className="text-sm sm:text-base text-[#5C534E] mt-4 leading-relaxed">
+              Bogotá Unlocked is designed for travelers who want a private,
+              well-organized day with direct communication before they book.
+            </p>
+
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+            <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
+              <div className="text-2xl mb-4">🏛️</div>
+              <h3 className="font-serif text-xl font-bold mb-2">
+                RNT Registered
+              </h3>
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                Bogotá Unlocked operates under Colombian tourism registration,
+                RNT No. 301817.
+              </p>
+            </div>
+
+            <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
+              <div className="text-2xl mb-4">💬</div>
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Direct Communication
+              </h3>
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                You speak directly with the host before your reservation is
+                confirmed.
+              </p>
+            </div>
+
+            <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
+              <div className="text-2xl mb-4">🔒</div>
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Confirmed Before Payment
+              </h3>
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                Your date and booking details are confirmed before any deposit
+                is requested.
+              </p>
+            </div>
+
+            <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
+              <div className="text-2xl mb-4">🚗</div>
+              <h3 className="font-serif text-xl font-bold mb-2">
+                Private From Start to Finish
+              </h3>
+              <p className="text-sm text-[#5C534E] leading-relaxed">
+                The experience is organized around your private group, with
+                private transportation and a dedicated host.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
       {/* RESERVATION */}
       <section
         id="reserve"
@@ -777,7 +850,7 @@ I understand that a deposit is required to confirm the reservation.`;
 
             <p className="text-sm text-[#786E65] mt-2 leading-relaxed">
               Tell us when you would like to visit Bogotá. We'll confirm
-              availability and help you finalize your private experience.
+              availability first, then help you secure your private experience.
             </p>
 
           </div>
@@ -916,29 +989,51 @@ I understand that a deposit is required to confirm the reservation.`;
 
             </div>
 
-            {/* BOOKING METHOD */}
-            <div>
+            {/* RESERVATION PROCESS */}
+            <div className="rounded-xl border border-[#EAE4DC] bg-[#F7F4EE] p-5">
 
-              <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534E] mb-2">
-                How would you like to continue?
-              </label>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#C85A32] mb-3">
+                How booking works
+              </div>
 
-              <div className="grid grid-cols-1 gap-2">
+              <div className="space-y-3 text-sm text-[#5C534E]">
 
-                <div className="p-4 rounded-md border border-[#C85A32] bg-[#FDFBF7] shadow-sm">
+                <div className="flex gap-3">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
+                    1
+                  </span>
+                  <p>
+                    <strong className="text-[#2C2523]">Request availability.</strong>{' '}
+                    Send your preferred date and trip details to the host on WhatsApp.
+                  </p>
+                </div>
 
-                  <div className="font-semibold text-sm text-[#2C2523]">
-                    💬 Check availability on WhatsApp
-                  </div>
+                <div className="flex gap-3">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
+                    2
+                  </span>
+                  <p>
+                    <strong className="text-[#2C2523]">Confirm your date.</strong>{' '}
+                    The host checks availability and confirms the final booking details with you.
+                  </p>
+                </div>
 
-                  <div className="text-xs text-[#786E65] mt-1">
-                    Confirm the date and booking details directly with the host.
-                    A deposit is required to secure the reservation.
-                  </div>
-
+                <div className="flex gap-3">
+                  <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
+                    3
+                  </span>
+                  <p>
+                    <strong className="text-[#2C2523]">Secure your reservation.</strong>{' '}
+                    A secure payment link is sent to you through WhatsApp for the required deposit.
+                  </p>
                 </div>
 
               </div>
+
+              <p className="text-[11px] text-[#786E65] mt-4 pt-4 border-t border-[#EAE4DC] leading-relaxed">
+                No payment is taken when you request availability. The deposit
+                is requested only after your date has been confirmed.
+              </p>
 
             </div>
 
@@ -963,22 +1058,6 @@ I understand that a deposit is required to confirm the reservation.`;
 
             </div>
 
-            {/* DEPOSIT INFO */}
-            <div className="p-4 bg-[#FFF8F2] rounded-md border border-[#E8CBB9]">
-
-              <p className="text-xs font-bold uppercase tracking-wider text-[#C85A32] mb-2">
-                Reservation Deposit
-              </p>
-
-              <p className="text-xs text-[#5C534E] leading-relaxed">
-                No payment is taken on this step. First, the host confirms
-                availability. Once confirmed, a secure payment link will be
-                sent via WhatsApp for the reservation deposit. The remaining
-                balance is paid on the day of the experience.
-              </p>
-
-            </div>
-
             {/* CTA */}
             <button
               type="submit"
@@ -988,8 +1067,9 @@ I understand that a deposit is required to confirm the reservation.`;
             </button>
 
             <p className="text-[11px] text-[#786E65] text-center leading-relaxed">
-              No payment is taken on this step. Availability and final booking
-              details are confirmed with the host first.
+              No payment is taken when you request availability. After your date
+              is confirmed, a secure payment link will be sent through WhatsApp
+              for the required deposit.
             </p>
 
           </form>
