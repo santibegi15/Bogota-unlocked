@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 
 export default function Home() {
   const [guests, setGuests] = useState(2);
-  const [paymentMethod, setPaymentMethod] = useState('whatsapp');
 
   const [formData, setFormData] = useState({
     date: '',
@@ -33,7 +32,9 @@ Preferred date: ${formData.date || 'TBD'}
 Name: ${formData.name}
 Email: ${formData.email}
 Pickup location: ${formData.pickupLocation}
-Estimated total: $${totalPrice} USD`;
+Estimated total: $${totalPrice} USD
+
+I understand that a deposit is required to confirm the reservation.`;
 
     window.open(
       `https://wa.me/573152551212?text=${encodeURIComponent(message)}`,
@@ -65,7 +66,7 @@ Estimated total: $${totalPrice} USD`;
     {
       question: 'What happens after I request a date?',
       answer:
-        'Your request opens WhatsApp with the details you entered. The host can then confirm availability and coordinate the final booking details with you.',
+        'Your request opens WhatsApp with the details you entered. The host can then confirm availability and coordinate the final booking details with you. Once availability is confirmed, a secure payment link will be sent via WhatsApp for the reservation deposit.',
     },
     {
       question: 'What happens if the weather changes?',
@@ -924,15 +925,7 @@ Estimated total: $${totalPrice} USD`;
 
               <div className="grid grid-cols-1 gap-2">
 
-                <button
-                  type="button"
-                  onClick={() => setPaymentMethod('whatsapp')}
-                  className={`p-4 rounded-md border text-left transition ${
-                    paymentMethod === 'whatsapp'
-                      ? 'border-[#C85A32] bg-[#FDFBF7] shadow-sm ring-1 ring-[#C85A32]'
-                      : 'border-[#D6CEC3] bg-white text-[#5C534E]'
-                  }`}
-                >
+                <div className="p-4 rounded-md border border-[#C85A32] bg-[#FDFBF7] shadow-sm">
 
                   <div className="font-semibold text-sm text-[#2C2523]">
                     💬 Check availability on WhatsApp
@@ -940,9 +933,10 @@ Estimated total: $${totalPrice} USD`;
 
                   <div className="text-xs text-[#786E65] mt-1">
                     Confirm the date and booking details directly with the host.
+                    A deposit is required to secure the reservation.
                   </div>
 
-                </button>
+                </div>
 
               </div>
 
@@ -966,6 +960,22 @@ Estimated total: $${totalPrice} USD`;
               <span className="text-2xl font-serif font-bold text-[#C85A32]">
                 ${totalPrice} USD
               </span>
+
+            </div>
+
+            {/* DEPOSIT INFO */}
+            <div className="p-4 bg-[#FFF8F2] rounded-md border border-[#E8CBB9]">
+
+              <p className="text-xs font-bold uppercase tracking-wider text-[#C85A32] mb-2">
+                Reservation Deposit
+              </p>
+
+              <p className="text-xs text-[#5C534E] leading-relaxed">
+                No payment is taken on this step. First, the host confirms
+                availability. Once confirmed, a secure payment link will be
+                sent via WhatsApp for the reservation deposit. The remaining
+                balance is paid on the day of the experience.
+              </p>
 
             </div>
 
