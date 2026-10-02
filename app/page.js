@@ -97,7 +97,7 @@ I understand that availability will be confirmed first and that a deposit is req
       <header className="border-b border-[#EAE4DC] bg-[#FDFBF7]/95 backdrop-blur sticky top-0 z-50 px-5 sm:px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
-          <a href="#" className="shrink-0">
+          <a href="/" className="shrink-0">
             <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#2C2523]">
               BOGOTÁ{' '}
               <span className="text-[#C85A32] italic font-normal">
@@ -1002,6 +1002,7 @@ I understand that availability will be confirmed first and that a deposit is req
                   <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
                     1
                   </span>
+
                   <p>
                     <strong className="text-[#2C2523]">Request availability.</strong>{' '}
                     Send your preferred date and trip details to the host on WhatsApp.
@@ -1012,6 +1013,7 @@ I understand that availability will be confirmed first and that a deposit is req
                   <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
                     2
                   </span>
+
                   <p>
                     <strong className="text-[#2C2523]">Confirm your date.</strong>{' '}
                     The host checks availability and confirms the final booking details with you.
@@ -1022,6 +1024,7 @@ I understand that availability will be confirmed first and that a deposit is req
                   <span className="shrink-0 w-6 h-6 rounded-full bg-[#C85A32] text-white text-xs font-bold flex items-center justify-center">
                     3
                   </span>
+
                   <p>
                     <strong className="text-[#2C2523]">Secure your reservation.</strong>{' '}
                     A secure payment link is sent to you through WhatsApp for the required deposit.
@@ -1234,21 +1237,21 @@ I understand that availability will be confirmed first and that a deposit is req
         <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-[11px] mb-5">
 
           <a
-            href="#"
+            href="/privacy"
             className="hover:text-white transition"
           >
             Privacy Policy
           </a>
 
           <a
-            href="#"
+            href="/terms"
             className="hover:text-white transition"
           >
             Terms & Conditions
           </a>
 
           <a
-            href="#"
+            href="/cancellation"
             className="hover:text-white transition"
           >
             Cancellation Policy
