@@ -12,10 +12,12 @@ export default function Home() {
     pickupLocation: '',
   });
 
-  const pricePerPerson = guests === 1 ? 279 : guests <= 4 ? 199 : null;
-  const totalPrice = pricePerPerson ? guests * pricePerPerson : null;
+  const pricePerPerson =
+    guests === 1 ? 279 : guests <= 4 ? 199 : null;
 
-  const whatsappNumber = '573144007496';
+  const totalPrice = pricePerPerson
+    ? guests * pricePerPerson
+    : null;
 
   const handleChange = (e) => {
     setFormData({
@@ -35,13 +37,15 @@ Name: ${formData.name}
 Email: ${formData.email}
 Pickup location: ${formData.pickupLocation}
 Estimated total: ${
-      totalPrice ? `$${totalPrice} USD` : 'Custom quote for 5–12 guests'
+      totalPrice
+        ? `$${totalPrice} USD`
+        : 'Custom quote for 5–12 guests'
     }
 
 I understand that availability will be confirmed first and that a deposit is required to secure the reservation.`;
 
     window.open(
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/573144007496?text=${encodeURIComponent(message)}`,
       '_blank'
     );
   };
@@ -94,7 +98,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
       {/* TOP TRUST BANNER */}
       <div className="bg-[#2D3E35] text-[#F4F1DE] text-[10px] sm:text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
-        Official MinCIT Registered Operator • RNT No. 301817 • Private Group Experience
+        Official MinCIT Registered Operator • RNT No. 301817 • Private 1–12 Guest Experience
       </div>
 
       {/* NAVIGATION */}
@@ -113,7 +117,7 @@ I understand that availability will be confirmed first and that a deposit is req
           <div className="flex items-center gap-3 sm:gap-6">
 
             <a
-              href={`https://wa.me/${whatsappNumber}`}
+              href="https://wa.me/573144007496"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden md:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase text-[#5C534E] hover:text-[#C85A32] transition"
@@ -144,45 +148,24 @@ I understand that availability will be confirmed first and that a deposit is req
           One private day.
           <br />
           <span className="italic text-[#C85A32]">
-            Bogotá, fully unlocked.
+            Bogotá, fully planned for you.
           </span>
         </h1>
 
-        <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-6 leading-relaxed">
-          Explore Bogotá through food, culture, history, coffee and local
-          traditions — while we handle the transportation, itinerary and
-          logistics around your private group.
+        <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-7 leading-relaxed">
+          Experience Bogotá through Monserrate, Paloquemao, La Candelaria,
+          Colombian food, specialty coffee and Tejo — with private
+          transportation and a dedicated local host handling the day for you.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-7">
-          <span>✓ Private group</span>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-5">
+          <span>✓ Private groups of 1–12</span>
           <span>✓ Hotel pickup & return</span>
-          <span>✓ Local host</span>
           <span>✓ From $199/person</span>
         </div>
 
-        {/* HERO CTA */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4">
-
-          <a
-            href="#reserve"
-            className="w-full sm:w-auto px-9 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
-          >
-            Check Your Date
-          </a>
-
-          <a
-            href="#included"
-            className="w-full sm:w-auto px-9 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
-          >
-            See What's Included
-          </a>
-
-        </div>
-
-        <p className="text-[11px] sm:text-xs text-[#786E65] mb-9 max-w-xl mx-auto leading-relaxed">
-          No payment is taken when you request availability. We confirm your
-          date first, then send the secure deposit payment link through WhatsApp.
+        <p className="text-[11px] sm:text-xs text-[#786E65] mb-9">
+          No payment at this step • We confirm availability first • Secure deposit only after confirmation
         </p>
 
         {/* HERO VIDEO */}
@@ -218,35 +201,21 @@ I understand that availability will be confirmed first and that a deposit is req
           </div>
         </div>
 
-        {/* QUICK VALUE STRIP */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
 
-          <div className="bg-[#F7F4EE] border border-[#EAE4DC] rounded-lg px-4 py-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#C85A32]">
-              Private
-            </div>
-            <div className="text-xs text-[#5C534E] mt-1">
-              Just your group and host
-            </div>
-          </div>
+          <a
+            href="#reserve"
+            className="w-full sm:w-auto px-8 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
+          >
+            Check Your Date
+          </a>
 
-          <div className="bg-[#F7F4EE] border border-[#EAE4DC] rounded-lg px-4 py-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#C85A32]">
-              All Day
-            </div>
-            <div className="text-xs text-[#5C534E] mt-1">
-              One organized Bogotá experience
-            </div>
-          </div>
-
-          <div className="bg-[#F7F4EE] border border-[#EAE4DC] rounded-lg px-4 py-3">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#C85A32]">
-              From $199
-            </div>
-            <div className="text-xs text-[#5C534E] mt-1">
-              Per person for 2–4 guests
-            </div>
-          </div>
+          <a
+            href="#included"
+            className="w-full sm:w-auto px-8 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
+          >
+            See What's Included
+          </a>
 
         </div>
 
@@ -556,27 +525,6 @@ I understand that availability will be confirmed first and that a deposit is req
 
           </div>
 
-          <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-5">
-
-            <div>
-              <p className="font-serif text-xl font-bold text-white">
-                Ready to see if your date is available?
-              </p>
-
-              <p className="text-sm text-neutral-300 mt-1">
-                No payment is required to make an availability request.
-              </p>
-            </div>
-
-            <a
-              href="#reserve"
-              className="shrink-0 inline-flex items-center justify-center px-7 py-3.5 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition"
-            >
-              Check Your Date
-            </a>
-
-          </div>
-
         </div>
       </section>
 
@@ -674,7 +622,7 @@ I understand that availability will be confirmed first and that a deposit is req
           <div>
 
             <span className="text-[10px] sm:text-xs uppercase font-bold tracking-widest text-[#C85A32]">
-              Simple Private Pricing
+              Private Experience
             </span>
 
             <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#2C2523] mt-2 leading-tight">
@@ -711,22 +659,6 @@ I understand that availability will be confirmed first and that a deposit is req
                 <span className="text-[#C85A32]">✓</span>
                 <span>Hotel pickup and return</span>
               </div>
-
-            </div>
-
-            <div className="mt-8 p-5 rounded-xl bg-[#2D3E35] text-[#F4F1DE]">
-
-              <div className="text-xs uppercase tracking-widest font-bold text-amber-300">
-                The sweet spot
-              </div>
-
-              <p className="font-serif text-xl font-bold mt-2">
-                $199 USD per person
-              </p>
-
-              <p className="text-xs text-neutral-300 mt-1">
-                For private groups of 2–4 guests.
-              </p>
 
             </div>
 
@@ -783,12 +715,12 @@ I understand that availability will be confirmed first and that a deposit is req
               href="#reserve"
               className="mt-7 w-full inline-flex items-center justify-center py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition"
             >
-              Check Your Date
+              Check Availability
             </a>
 
             <p className="text-[11px] text-[#786E65] text-center mt-4 leading-relaxed">
-              Availability is confirmed directly with the host. A deposit is
-              required only after your date is confirmed.
+              Final availability is confirmed directly with the host. A deposit
+              is required to secure the reservation. Groups of 5–12 receive a customized quote.
             </p>
 
           </div>
@@ -934,7 +866,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <div className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-3 py-1 rounded-full mb-4">
               <span>✓</span>
-              <span>RNT Registered • 301817</span>
+              <span>RNT Registered • No Payment Yet</span>
             </div>
 
             <h2 className="font-serif text-3xl font-bold text-[#2C2523]">
@@ -942,8 +874,8 @@ I understand that availability will be confirmed first and that a deposit is req
             </h2>
 
             <p className="text-sm text-[#786E65] mt-2 leading-relaxed">
-              Tell us when you would like to experience Bogotá. We'll check
-              availability first, then help you secure your private day.
+              Tell us when you would like to visit Bogotá. We'll confirm
+              availability first, then help you secure your private experience.
             </p>
 
           </div>
@@ -980,13 +912,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
               {guests === 1 && (
                 <p className="text-[11px] text-[#C85A32] mt-2 italic">
-                  Private solo experience: $279 USD total.
-                </p>
-              )}
-
-              {guests >= 2 && guests <= 4 && (
-                <p className="text-[11px] text-[#C85A32] mt-2 italic">
-                  Private group rate: $199 USD per person.
+                  Solo traveler private vehicle & host exclusivity rate: $279 total.
                 </p>
               )}
 
@@ -1097,7 +1023,7 @@ I understand that availability will be confirmed first and that a deposit is req
             <div className="rounded-xl border border-[#EAE4DC] bg-[#F7F4EE] p-5">
 
               <div className="text-xs font-bold uppercase tracking-wider text-[#C85A32] mb-3">
-                What happens next
+                How booking works
               </div>
 
               <div className="space-y-3 text-sm text-[#5C534E]">
@@ -1108,8 +1034,10 @@ I understand that availability will be confirmed first and that a deposit is req
                   </span>
 
                   <p>
-                    <strong className="text-[#2C2523]">Send your request.</strong>{' '}
-                    Your details open directly in WhatsApp with the host.
+                    <strong className="text-[#2C2523]">
+                      Request availability.
+                    </strong>{' '}
+                    Send your preferred date and trip details to the host on WhatsApp.
                   </p>
                 </div>
 
@@ -1119,8 +1047,10 @@ I understand that availability will be confirmed first and that a deposit is req
                   </span>
 
                   <p>
-                    <strong className="text-[#2C2523]">Confirm your date.</strong>{' '}
-                    The host checks availability and confirms the final details.
+                    <strong className="text-[#2C2523]">
+                      Confirm your date.
+                    </strong>{' '}
+                    The host checks availability and confirms the final booking details with you.
                   </p>
                 </div>
 
@@ -1130,8 +1060,10 @@ I understand that availability will be confirmed first and that a deposit is req
                   </span>
 
                   <p>
-                    <strong className="text-[#2C2523]">Secure your reservation.</strong>{' '}
-                    A secure payment link is sent through WhatsApp for the required deposit.
+                    <strong className="text-[#2C2523]">
+                      Secure your reservation.
+                    </strong>{' '}
+                    A secure payment link is sent to you through WhatsApp for the required deposit.
                   </p>
                 </div>
 
@@ -1176,8 +1108,9 @@ I understand that availability will be confirmed first and that a deposit is req
             </button>
 
             <p className="text-[11px] text-[#786E65] text-center leading-relaxed">
-              No payment is taken here. We'll confirm availability first.
-              If your date works, you'll receive a secure payment link for the deposit.
+              No payment is taken when you request availability. After your date
+              is confirmed, a secure payment link will be sent through WhatsApp
+              for the required deposit.
             </p>
 
           </form>
@@ -1285,7 +1218,10 @@ I understand that availability will be confirmed first and that a deposit is req
             <p className="text-[11px] text-neutral-400">
               We collect only the information needed to respond to your booking request.
               You can review how your information is handled in our{' '}
-              <a href="/privacy" className="underline hover:text-white">
+              <a
+                href="/privacy"
+                className="underline hover:text-white"
+              >
                 Privacy Policy
               </a>.
             </p>
@@ -1309,19 +1245,22 @@ I understand that availability will be confirmed first and that a deposit is req
         aria-label="Contact Bogotá Unlocked on WhatsApp"
         className="fixed bottom-5 right-5 z-50 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-full shadow-xl px-4 py-3 flex items-center gap-2 transition"
       >
+
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 32 32"
           className="w-6 h-6 fill-current"
           aria-hidden="true"
         >
-          <path d="M19.11 17.23c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.34-.79-.7-1.33-1.56-1.49-1.83-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.97 2.62 1.11 2.8c.14.18 1.9 2.91 4.61 4.08.64.28 1.14.44 1.53.56.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z" />
+          <path d="M19.11 17.23c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.34-.79-.7-1.33-1.56-1.49-1.83-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.97 2.62 1.11 2.8c.14.18 1.9 2.91 4.61 4.08.64.28 1.14.44 1.53.56.51-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z" />
+
           <path d="M16.01 3C8.83 3 3 8.83 3 16.01c0 2.29.6 4.53 1.74 6.49L3 29l6.67-1.7a12.96 12.96 0 0 0 6.34 1.63h.01C23.17 28.93 29 23.1 29 15.92 29 8.76 23.17 3 16.01 3zm0 23.72h-.01a10.76 10.76 0 0 1-5.49-1.51l-.39-.23-3.96 1.01 1.06-3.86-.25-.4a10.77 10.77 0 1 1 9.04 4.99z" />
         </svg>
-      
+
         <span className="hidden sm:inline text-xs font-bold">
           WhatsApp
         </span>
+
       </a>
 
       {/* FOOTER */}
@@ -1375,7 +1314,7 @@ I understand that availability will be confirmed first and that a deposit is req
           </a>
 
           <a
-            href={`https://wa.me/${whatsappNumber}`}
+            href="https://wa.me/573144007496"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-white transition"
