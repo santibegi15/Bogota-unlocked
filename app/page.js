@@ -1303,21 +1303,25 @@ I understand that availability will be confirmed first and that a deposit is req
 
       {/* FLOATING WHATSAPP */}
       <a
-        href={`https://wa.me/${whatsappNumber}`}
+        href="https://wa.me/573144007496"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contact Bogotá Unlocked on WhatsApp"
         className="fixed bottom-5 right-5 z-50 bg-[#25D366] hover:bg-[#1EBE5D] text-white rounded-full shadow-xl px-4 py-3 flex items-center gap-2 transition"
       >
-
-        <span className="text-lg">
-          💬
-        </span>
-
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 32 32"
+          className="w-6 h-6 fill-current"
+          aria-hidden="true"
+        >
+          <path d="M19.11 17.23c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.13-.42-2.15-1.34-.79-.7-1.33-1.56-1.49-1.83-.16-.27-.02-.42.12-.56.12-.12.27-.32.41-.47.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.47-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47h-.52c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.97 2.62 1.11 2.8c.14.18 1.9 2.91 4.61 4.08.64.28 1.14.44 1.53.56.64.2 1.22.17 1.68.1.51-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32z" />
+          <path d="M16.01 3C8.83 3 3 8.83 3 16.01c0 2.29.6 4.53 1.74 6.49L3 29l6.67-1.7a12.96 12.96 0 0 0 6.34 1.63h.01C23.17 28.93 29 23.1 29 15.92 29 8.76 23.17 3 16.01 3zm0 23.72h-.01a10.76 10.76 0 0 1-5.49-1.51l-.39-.23-3.96 1.01 1.06-3.86-.25-.4a10.77 10.77 0 1 1 9.04 4.99z" />
+        </svg>
+      
         <span className="hidden sm:inline text-xs font-bold">
           WhatsApp
         </span>
-
       </a>
 
       {/* FOOTER */}
