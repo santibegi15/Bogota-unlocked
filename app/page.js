@@ -32,9 +32,7 @@ Preferred date: ${formData.date || 'TBD'}
 Name: ${formData.name}
 Email: ${formData.email}
 Pickup location: ${formData.pickupLocation}
-Estimated total: ${
-      totalPrice ? `$${totalPrice} USD` : 'Custom quote for 5–12 guests'
-    }
+Estimated total: ${totalPrice ? `$${totalPrice} USD` : 'Custom quote for 5–12 guests'}
 
 I understand that availability will be confirmed first and that a deposit is required to secure the reservation.`;
 
@@ -142,18 +140,18 @@ I understand that availability will be confirmed first and that a deposit is req
           One private day.
           <br />
           <span className="italic text-[#C85A32]">
-            The best of Bogotá.
+            The best of Bogotá, made effortless.
           </span>
         </h1>
 
         <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-7 leading-relaxed">
-          Experience Bogotá beyond the usual city tour — private transportation,
-          a dedicated local host, exotic fruits, Monserrate, Colombian food,
-          the Gold Museum, specialty coffee and an unforgettable game of Tejo.
+          See Bogotá through food, culture, history and local traditions — without
+          having to organize the day yourself. Private transportation, a dedicated
+          local host and a full itinerary are arranged around your group.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-9">
-          <span>✓ Private experience</span>
+          <span>✓ Private groups up to 12</span>
           <span>✓ Hotel pickup & return</span>
           <span>✓ From $199/person</span>
         </div>
@@ -694,8 +692,9 @@ I understand that availability will be confirmed first and that a deposit is req
                 <strong>$796 USD</strong>
               </div>
 
-              <div className="pt-2 text-xs text-[#786E65] leading-relaxed">
-                Groups of 5–12 guests are welcome. Contact the host for a customized quote.
+              <div className="flex justify-between text-sm pt-2 border-t border-[#EAE4DC]">
+                <span className="text-[#5C534E]">5–12 guests</span>
+                <strong>Custom Quote</strong>
               </div>
 
             </div>
@@ -779,7 +778,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <p className="text-sm sm:text-base text-[#5C534E] mt-4 leading-relaxed">
               Bogotá Unlocked is designed for travelers who want a private,
-              well-organized day with direct communication before they book.
+              well-organized day with clear communication before they pay.
             </p>
 
           </div>
@@ -804,7 +803,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </h3>
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 You speak directly with the host before your reservation is
-                confirmed.
+                confirmed, including date, pickup and final booking details.
               </p>
             </div>
 
@@ -815,7 +814,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </h3>
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 Your date and booking details are confirmed before any deposit
-                is requested.
+                is requested. No payment is taken through this form.
               </p>
             </div>
 
@@ -825,8 +824,8 @@ I understand that availability will be confirmed first and that a deposit is req
                 Private From Start to Finish
               </h3>
               <p className="text-sm text-[#5C534E] leading-relaxed">
-                The experience is organized around your private group, with
-                private transportation and a dedicated host. Groups of up to 12 guests can be accommodated.
+                The experience is organized around your private group of up to 12 guests,
+                with private transportation and a dedicated host.
               </p>
             </div>
 
@@ -857,10 +856,6 @@ I understand that availability will be confirmed first and that a deposit is req
             <p className="text-sm text-[#786E65] mt-2 leading-relaxed">
               Tell us when you would like to visit Bogotá. We'll confirm
               availability first, then help you secure your private experience.
-            </p>
-
-            <p className="text-[11px] text-[#786E65] mt-3">
-              Private groups of up to 12 guests.
             </p>
 
           </div>
@@ -897,11 +892,13 @@ I understand that availability will be confirmed first and that a deposit is req
 
               {guests === 1 && (
                 <p className="text-[11px] text-[#C85A32] mt-2 italic">
-                  {guests === 1
-                    ? 'Solo traveler private vehicle & host exclusivity rate: $279 total.'
-                    : guests >= 5
-                    ? 'Private groups of 5–12 guests receive a customized quote.'
-                    : 'Private groups of 2–4 guests are priced at $199 per person.'}
+                  Solo traveler private vehicle & host exclusivity rate: $279 total.
+                </p>
+              )}
+
+              {guests >= 5 && (
+                <p className="text-[11px] text-[#C85A32] mt-2 italic">
+                  Groups of 5–12 guests are welcome. The host will provide a customized quote.
                 </p>
               )}
 
@@ -1063,15 +1060,13 @@ I understand that availability will be confirmed first and that a deposit is req
                 </span>
 
                 <span className="text-xs text-[#5C534E] font-medium">
-                  {guests <= 4
-                    ? `${guests} ${guests === 1 ? 'guest' : 'guests'} × $${pricePerPerson} USD`
-                    : 'Customized pricing for 5–12 guests'}
+                  {guests <= 4 ? `${guests} ${guests === 1 ? 'guest' : 'guests'} × $${pricePerPerson} USD` : 'Customized pricing for 5–12 guests'}
                 </span>
 
               </div>
 
               <span className="text-2xl font-serif font-bold text-[#C85A32]">
-                {guests <= 4 ? `$${totalPrice} USD` : 'Custom Quote'}
+                {totalPrice ? `$${totalPrice} USD` : 'Custom Quote'}
               </span>
 
             </div>
@@ -1117,7 +1112,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </p>
 
               <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
-                Registered tourism operator in Colombia.
+                Registered tourism operator in Colombia. You can review the registration details before booking.
               </p>
 
             </div>
@@ -1133,7 +1128,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </h4>
 
               <p className="text-base font-serif font-bold text-white mt-1">
-                Private Group Experience
+                Small-Group Touring
               </p>
 
               <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
@@ -1190,6 +1185,11 @@ I understand that availability will be confirmed first and that a deposit is req
               <strong>Bogotá Unlocked</strong> is a tourism operator registered
               with the Colombian National Tourism Registry (
               <strong>RNT No. 301817</strong>).
+            </p>
+
+            <p className="text-[11px] text-neutral-400">
+              We collect only the information needed to respond to your booking request.
+              You can review how your information is handled in our <a href="/privacy" className="underline hover:text-white">Privacy Policy</a>.
             </p>
 
             <p className="text-[11px] text-neutral-400">
