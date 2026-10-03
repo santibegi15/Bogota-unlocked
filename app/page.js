@@ -12,8 +12,8 @@ export default function Home() {
     pickupLocation: '',
   });
 
-  const pricePerPerson = guests === 1 ? 279 : 199;
-  const totalPrice = guests * pricePerPerson;
+  const pricePerPerson = guests === 1 ? 279 : guests <= 4 ? 199 : null;
+  const totalPrice = pricePerPerson ? guests * pricePerPerson : null;
 
   const handleChange = (e) => {
     setFormData({
@@ -32,7 +32,9 @@ Preferred date: ${formData.date || 'TBD'}
 Name: ${formData.name}
 Email: ${formData.email}
 Pickup location: ${formData.pickupLocation}
-Estimated total: $${totalPrice} USD
+Estimated total: ${
+      totalPrice ? `$${totalPrice} USD` : 'Custom quote for 5–12 guests'
+    }
 
 I understand that availability will be confirmed first and that a deposit is required to secure the reservation.`;
 
@@ -56,7 +58,7 @@ I understand that availability will be confirmed first and that a deposit is req
     {
       question: 'How many people can join?',
       answer:
-        'The current booking form supports private groups of 1 to 4 guests. For larger groups, contact the host directly through WhatsApp.',
+        'The booking form supports private groups of 1 to 12 guests. Groups of 5–12 receive a customized quote from the host.',
     },
     {
       question: 'Where can you pick us up?',
@@ -90,7 +92,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
       {/* TOP TRUST BANNER */}
       <div className="bg-[#2D3E35] text-[#F4F1DE] text-[10px] sm:text-xs font-semibold tracking-wider uppercase py-2.5 px-4 text-center">
-        Official MinCIT Registered Operator • RNT No. 301817 • Private Small-Group Experience
+        Official MinCIT Registered Operator • RNT No. 301817 • Private Group Experience
       </div>
 
       {/* NAVIGATION */}
@@ -622,7 +624,7 @@ I understand that availability will be confirmed first and that a deposit is req
             </h2>
 
             <p className="text-sm sm:text-base text-[#5C534E] mt-5 leading-relaxed max-w-xl">
-              The experience is designed for small private groups who want
+              The experience is designed for private groups of up to 12 guests who want
               to see more of Bogotá without joining a large organized tour.
             </p>
 
@@ -665,7 +667,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </div>
 
               <div className="text-sm text-[#786E65]">
-                USD per person
+                USD per person for 2–4 guests
               </div>
 
             </div>
@@ -692,6 +694,10 @@ I understand that availability will be confirmed first and that a deposit is req
                 <strong>$796 USD</strong>
               </div>
 
+              <div className="pt-2 text-xs text-[#786E65] leading-relaxed">
+                Groups of 5–12 guests are welcome. Contact the host for a customized quote.
+              </div>
+
             </div>
 
             <a
@@ -703,7 +709,7 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <p className="text-[11px] text-[#786E65] text-center mt-4 leading-relaxed">
               Final availability is confirmed directly with the host. A deposit
-              is required to secure the reservation.
+              is required to secure the reservation. Groups of 5–12 receive a customized quote.
             </p>
 
           </div>
@@ -820,7 +826,7 @@ I understand that availability will be confirmed first and that a deposit is req
               </h3>
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 The experience is organized around your private group, with
-                private transportation and a dedicated host.
+                private transportation and a dedicated host. Groups of up to 12 guests can be accommodated.
               </p>
             </div>
 
@@ -853,6 +859,10 @@ I understand that availability will be confirmed first and that a deposit is req
               availability first, then help you secure your private experience.
             </p>
 
+            <p className="text-[11px] text-[#786E65] mt-3">
+              Private groups of up to 12 guests.
+            </p>
+
           </div>
 
           <form onSubmit={handleCheckout} className="space-y-5">
@@ -864,9 +874,9 @@ I understand that availability will be confirmed first and that a deposit is req
                 Number of Guests
               </label>
 
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
 
-                {[1, 2, 3, 4].map((num) => (
+                {Array.from({ length: 12 }, (_, index) => index + 1).map((num) => (
 
                   <button
                     key={num}
@@ -887,8 +897,11 @@ I understand that availability will be confirmed first and that a deposit is req
 
               {guests === 1 && (
                 <p className="text-[11px] text-[#C85A32] mt-2 italic">
-                  Solo traveler private vehicle & host exclusivity rate:
-                  $279 total.
+                  {guests === 1
+                    ? 'Solo traveler private vehicle & host exclusivity rate: $279 total.'
+                    : guests >= 5
+                    ? 'Private groups of 5–12 guests receive a customized quote.'
+                    : 'Private groups of 2–4 guests are priced at $199 per person.'}
                 </p>
               )}
 
@@ -1050,13 +1063,15 @@ I understand that availability will be confirmed first and that a deposit is req
                 </span>
 
                 <span className="text-xs text-[#5C534E] font-medium">
-                  {guests} {guests === 1 ? 'guest' : 'guests'} × ${pricePerPerson} USD
+                  {guests <= 4
+                    ? `${guests} ${guests === 1 ? 'guest' : 'guests'} × $${pricePerPerson} USD`
+                    : 'Customized pricing for 5–12 guests'}
                 </span>
 
               </div>
 
               <span className="text-2xl font-serif font-bold text-[#C85A32]">
-                ${totalPrice} USD
+                {guests <= 4 ? `$${totalPrice} USD` : 'Custom Quote'}
               </span>
 
             </div>
@@ -1118,11 +1133,11 @@ I understand that availability will be confirmed first and that a deposit is req
               </h4>
 
               <p className="text-base font-serif font-bold text-white mt-1">
-                Small-Group Touring
+                Private Group Experience
               </p>
 
               <p className="text-xs text-neutral-300 mt-1 leading-relaxed">
-                Designed around your private group.
+                Designed around private groups of up to 12 guests.
               </p>
 
             </div>
