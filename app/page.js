@@ -144,17 +144,40 @@ I understand that availability will be confirmed first and that a deposit is req
           </span>
         </h1>
 
-        <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-7 leading-relaxed">
-          See Bogotá through food, culture, history and local traditions — without
-          having to organize the day yourself. Private transportation, a dedicated
-          local host and a full itinerary are arranged around your group.
+        <p className="text-base sm:text-lg lg:text-xl text-[#5C534E] max-w-3xl mx-auto mb-6 leading-relaxed">
+          See Bogotá through food, culture, history and local traditions —
+          without having to organize the day yourself. Private transportation,
+          a dedicated local host and a full itinerary are arranged around your group.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-9">
-          <span>✓ Private groups up to 12</span>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs sm:text-sm text-[#5C534E] mb-7">
+          <span>✓ Private groups of 1–12</span>
           <span>✓ Hotel pickup & return</span>
           <span>✓ From $199/person</span>
         </div>
+
+        {/* HERO CTA — MOVED BEFORE VIDEO */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4">
+
+          <a
+            href="#reserve"
+            className="w-full sm:w-auto px-8 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
+          >
+            Check Availability
+          </a>
+
+          <a
+            href="#included"
+            className="w-full sm:w-auto px-8 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
+          >
+            See What's Included
+          </a>
+
+        </div>
+
+        <p className="text-[11px] sm:text-xs text-[#786E65] mb-9">
+          No payment is taken when you request availability. Your date is confirmed before a deposit is requested.
+        </p>
 
         {/* HERO VIDEO */}
         <div className="relative w-full h-[330px] sm:h-[480px] overflow-hidden rounded-2xl shadow-xl mb-9 bg-neutral-900">
@@ -187,24 +210,6 @@ I understand that availability will be confirmed first and that a deposit is req
             </span>
 
           </div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-
-          <a
-            href="#reserve"
-            className="w-full sm:w-auto px-8 py-4 bg-[#C85A32] hover:bg-[#B04A25] text-white font-bold rounded-md text-xs uppercase tracking-wider transition shadow-md shadow-[#C85A32]/20"
-          >
-            Check Availability
-          </a>
-
-          <a
-            href="#included"
-            className="w-full sm:w-auto px-8 py-4 border border-[#D6CEC3] hover:border-[#2C2523] text-[#2C2523] font-bold rounded-md text-xs uppercase tracking-wider transition"
-          >
-            See What's Included
-          </a>
-
         </div>
 
       </section>
@@ -787,9 +792,11 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
               <div className="text-2xl mb-4">🏛️</div>
+
               <h3 className="font-serif text-xl font-bold mb-2">
                 RNT Registered
               </h3>
+
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 Bogotá Unlocked operates under Colombian tourism registration,
                 RNT No. 301817.
@@ -798,9 +805,11 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
               <div className="text-2xl mb-4">💬</div>
+
               <h3 className="font-serif text-xl font-bold mb-2">
                 Direct Communication
               </h3>
+
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 You speak directly with the host before your reservation is
                 confirmed, including date, pickup and final booking details.
@@ -809,9 +818,11 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
               <div className="text-2xl mb-4">🔒</div>
+
               <h3 className="font-serif text-xl font-bold mb-2">
                 Confirmed Before Payment
               </h3>
+
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 Your date and booking details are confirmed before any deposit
                 is requested. No payment is taken through this form.
@@ -820,9 +831,11 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <div className="border border-[#EAE4DC] rounded-xl p-6 bg-[#F7F4EE]">
               <div className="text-2xl mb-4">🚗</div>
+
               <h3 className="font-serif text-xl font-bold mb-2">
                 Private From Start to Finish
               </h3>
+
               <p className="text-sm text-[#5C534E] leading-relaxed">
                 The experience is organized around your private group of up to 12 guests,
                 with private transportation and a dedicated host.
@@ -1060,7 +1073,9 @@ I understand that availability will be confirmed first and that a deposit is req
                 </span>
 
                 <span className="text-xs text-[#5C534E] font-medium">
-                  {guests <= 4 ? `${guests} ${guests === 1 ? 'guest' : 'guests'} × $${pricePerPerson} USD` : 'Customized pricing for 5–12 guests'}
+                  {guests <= 4
+                    ? `${guests} ${guests === 1 ? 'guest' : 'guests'} × $${pricePerPerson} USD`
+                    : 'Customized pricing for 5–12 guests'}
                 </span>
 
               </div>
@@ -1189,7 +1204,10 @@ I understand that availability will be confirmed first and that a deposit is req
 
             <p className="text-[11px] text-neutral-400">
               We collect only the information needed to respond to your booking request.
-              You can review how your information is handled in our <a href="/privacy" className="underline hover:text-white">Privacy Policy</a>.
+              You can review how your information is handled in our{' '}
+              <a href="/privacy" className="underline hover:text-white">
+                Privacy Policy
+              </a>.
             </p>
 
             <p className="text-[11px] text-neutral-400">
